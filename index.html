@@ -1,0 +1,4412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二十四节气 · 中国人的时间哲学</title>
+<meta name="description" content="二十四节气单文件站：时令、物候、农事、风俗、养生与诗词，含二十四节气详情、节气诗话、文化长卷与七十二候。">
+<meta name="author" content="二十四节气">
+<meta name="theme-color" content="#14161a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="二十四节气 · 中国人的时间哲学">
+<meta property="og:description" content="以太阳周年视运动为尺，将一年划分为二十四个节气。">
+<link rel="icon" href="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%20%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%2314161a%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2219%22%20fill%3D%22none%22%20stroke%3D%22%23f5efe1%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M32%2013a19%2019%200%200%201%200%2038z%22%20fill%3D%22%2358896a%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M32%2051a19%2019%200%200%201%200-38z%22%20fill%3D%22%23bb8b2f%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%224%22%20fill%3D%22%23f5efe1%22%2F%3E%0A%3C%2Fsvg%3E">
+<style>
+@charset "utf-8";
+/* ==========================================================================
+   浜屽崄鍥涜妭姘?路 绾潤鎬佺珯
+   styles.css 鈥斺€?瀹ｇ焊璐ㄦ劅 / 姘村ⅷ閰嶈壊 / 鍥涘鑹茬郴
+   ========================================================================== */
+
+/* ---------- 1. 鍙橀噺涓庡熀纭€ ---------- */
+:root {
+  --paper: #f5efe1;
+  --paper-2: #ece2cd;
+  --paper-3: #e0d3b8;
+  --ink: #23201b;
+  --ink-2: #4a443a;
+  --ink-3: #6f6759;
+  --line: rgba(35, 32, 27, 0.14);
+  --line-soft: rgba(35, 32, 27, 0.07);
+  --seal: #a8321f;
+  --accent: #3f6b52;
+  --accent-soft: rgba(63, 107, 82, 0.12);
+
+  --c-spring: #58896a;  --c-summer: #ab4537;
+  --c-autumn: #bb8b2f;
+  --c-winter: #4b6b86;
+
+  --serif: "Songti SC", "Source Han Serif SC", "Noto Serif SC", "STSong", "SimSun", "宋体", "Times New Roman", serif;
+  --kai: "Kaiti SC", "KaiTi", "STKaiti", "Songti SC", "Noto Serif SC", serif;
+  --sans: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* 节气名与印章：本机楷体优先，无楷体时回退宋体（如启用远程字库，在此处最前面加字体名即可） */
+  --type-title: "Kaiti SC", "KaiTi", "STKaiti", "华文楷体", "楷体", "Songti SC", "STSong", "SimSun", "宋体", serif;
+  --brush: var(--type-title);
+
+  --wrap: 1240px;
+  --nav-h: 74px;
+  --radius: 4px;
+  --shadow-s: 0 2px 10px rgba(35, 32, 27, 0.06);
+  --shadow-m: 0 14px 34px rgba(35, 32, 27, 0.11);
+  --shadow-l: 0 26px 60px rgba(20, 22, 26, 0.22);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 17.2px;
+  line-height: 1.9;
+  color: var(--ink-2);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.75), transparent 42%),
+    radial-gradient(circle at 82% 8%, rgba(226, 210, 176, 0.55), transparent 46%),
+    radial-gradient(circle at 50% 100%, rgba(214, 196, 160, 0.4), transparent 60%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* 瀹ｇ焊棰楃矑 */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+p { margin: 0 0 1em; }
+
+::selection { background: var(--seal); color: #fff8ec; }
+
+/* 婊氬姩鏉?*/
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--paper-2); }
+::-webkit-scrollbar-thumb { background: rgba(35, 32, 27, 0.26); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(35, 32, 27, 0.42); }
+
+/* ---------- 2. 閫氱敤甯冨眬 ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.section { padding: 88px 0; position: relative; z-index: 1; scroll-margin-top: calc(var(--nav-h) + 18px); }
+.section--tight { padding: 60px 0; }
+.section--paper2 { background: linear-gradient(180deg, rgba(236, 226, 205, 0), rgba(236, 226, 205, 0.85) 30%, rgba(236, 226, 205, 0.85) 70%, rgba(236, 226, 205, 0)); }
+
+.section-head { margin-bottom: 40px; }
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 14.3px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: clamp(30px, 3.9vw, 48px);
+  letter-spacing: 0.06em;
+}
+
+.section-title .sub {
+  display: inline-block;
+  margin-left: 14px;
+  font-family: var(--sans);
+  font-size: 15.4px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  vertical-align: middle;
+}
+
+.section-desc {
+  max-width: 760px;
+  margin-top: 16px;
+  color: var(--ink-3);
+  font-size: 16.4px;
+}
+
+.rule {
+  width: 64px;
+  height: 3px;
+  background: var(--accent);
+  margin: 18px 0 0;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 18px;
+  z-index: 200;
+}
+.skip-link:focus { left: 12px; top: 12px; }
+
+/* ---------- 3A. 顶部阅读进度条 ---------- */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--c-spring), var(--c-summer), var(--c-autumn), var(--c-winter));
+  z-index: 120;
+  transition: width 0.12s linear;
+}
+
+/* ---------- 3B. 顶部导航条：印章 + 站名 + 当前节气 ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  background: rgba(245, 239, 225, 0.86);
+  backdrop-filter: saturate(1.35) blur(12px);
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.nav.is-solid {
+  background: rgba(245, 239, 225, 0.95);
+  border-bottom-color: var(--line);
+  box-shadow: 0 6px 22px rgba(35, 32, 27, 0.06);
+}
+.nav__inner {
+  width: 100%;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 站名「二十四节气」始终单行：不换行、不收缩 */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex: none;
+  min-width: max-content;
+  font-family: var(--brush);
+  font-size: 23px;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+.brand__seal {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 4px;
+  background: var(--seal);
+  color: #fff6ea;
+  font-family: var(--brush);
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+  letter-spacing: 0;
+  box-shadow: 0 3px 10px rgba(168, 50, 31, 0.26);
+}
+.brand__word {
+  display: inline-flex;
+  flex-direction: column;
+  flex: none;
+  line-height: 1.06;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+.brand__en {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+/* 当前节气 + 时间区间：带框突出显示（两者字体与字号统一） */
+/* 模块导航：宽屏显示各模块名称，窄屏整体隐藏 */
+.nav__modules {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  min-width: 0;
+}
+.nav__mod {
+  position: relative;
+  padding: 7px 10px;
+  border-radius: 3px;
+  font-size: 15.4px;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  white-space: nowrap;
+  transition: color 0.28s ease, background 0.28s ease, transform 0.28s ease;
+}
+.nav__mod:hover {
+  color: var(--ink);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+}
+.nav__mod::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 2px;
+  height: 2px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.3);
+  transform-origin: center;
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+.nav__mod:hover::after { opacity: 0.45; transform: scaleX(1); }
+.nav__mod.is-current {
+  color: var(--accent);
+  font-weight: 600;
+}
+.nav__mod.is-current::after { opacity: 0.75; transform: scaleX(1); }
+.nav__mod.is-active {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.nav__mod.is-active::after { opacity: 0.6; transform: scaleX(1); }
+
+.nav__term {
+  margin: 0 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 18px 7px 15px;
+  border: 1.5px solid color-mix(in srgb, var(--seal) 46%, transparent);
+  border-radius: 100px;
+  background: rgba(255, 253, 246, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 246, 0.7), 0 4px 14px rgba(168, 50, 31, 0.1);
+  font-family: var(--brush);
+  font-size: 19.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  color: var(--seal);
+  white-space: nowrap;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.nav.is-solid .nav__term { background: #fffdf6; }
+.nav__term:hover {
+  border-color: color-mix(in srgb, var(--seal) 78%, transparent);
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 246, 0.7), 0 6px 20px rgba(168, 50, 31, 0.2);
+}
+.nav__term-dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.9;
+  animation: termDot 3.6s ease-in-out infinite;
+}
+@keyframes termDot {
+  0%, 100% { transform: scale(1); opacity: 0.75; }
+  50% { transform: scale(1.35); opacity: 1; }
+}
+/* 节气名与时间区间：同字体、同字号、同字重（颜色不同，见下） */
+.nav__term-name,
+.nav__term-date {
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: inherit;
+}
+/* 默认值：节气名取节气盘同色（app.js 按当前季节注入），区间用框色 */
+.nav__term :where(.nav__term-name) { color: var(--c-spring, #58896a); }
+.nav__term .nav__term-date { color: inherit; opacity: 1; }
+.nav__term-dot { background: currentColor; }
+
+/* ---------- 4. 棣栭〉涓昏瑙?---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink-2);
+  padding: calc(var(--nav-h) + 40px) 0 60px;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(88, 137, 106, 0.20), transparent 54%),
+    radial-gradient(circle at 12% 78%, rgba(171, 69, 55, 0.13), transparent 46%),
+    radial-gradient(circle at 88% 18%, rgba(75, 107, 134, 0.16), transparent 46%),
+    radial-gradient(circle at 78% 92%, rgba(187, 139, 47, 0.16), transparent 50%),
+    radial-gradient(circle at 24% 12%, rgba(213, 168, 132, 0.20), transparent 44%),
+    linear-gradient(180deg, #faf6ec 0%, #f5efe1 52%, #f1e9d8 76%, var(--paper) 100%);
+}
+.hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.34;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+}
+.hero__ring {
+  position: absolute;
+  border: 1px solid rgba(35, 32, 27, 0.10);
+  border-radius: 50%;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.hero__ring--1 { width: min(74vmin, 660px); height: min(74vmin, 660px); border-color: rgba(88, 137, 106, 0.30); }
+.hero__ring--2 { width: min(96vmin, 880px); height: min(96vmin, 880px); border-style: dashed; opacity: 0.72; border-color: rgba(35, 32, 27, 0.16); animation: spin 180s linear infinite; }
+.hero__ring--3 { width: min(52vmin, 460px); height: min(52vmin, 460px); opacity: 0.7; border-color: rgba(187, 139, 47, 0.34); }
+
+@keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero__ring--2 { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  max-width: 980px;
+  padding: 0 24px;
+}
+.hero__kicker {
+  font-size: 16.5px;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 26px;
+}
+.hero__title {
+  /* 字号只跟视口宽度走，并用 width: max-content + nowrap 保证「二十四节气」恒为一行 */
+  font-size: clamp(30px, 11.5vw, 176px);
+  line-height: 1.16;
+  color: var(--ink);
+  margin: 0;
+  width: max-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+.hero__title span {
+  display: inline-block;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(44px) scale(0.94);
+  animation-name: riseIn;
+  animation-duration: 1.25s;
+  animation-timing-function: cubic-bezier(0.22, 0.68, 0.24, 1);
+  animation-fill-mode: forwards;
+}
+@keyframes riseIn {
+  0% { opacity: 0; transform: translateY(44px) scale(0.94); filter: blur(7px); }
+  60% { filter: blur(0); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: none; }
+}
+
+.hero__sub {
+  margin: 26px auto 0;
+  max-width: 640px;
+  font-size: clamp(17px, 2vw, 22px);
+  line-height: 2.1;
+  letter-spacing: 0.16em;
+  color: var(--ink-2);
+  font-family: var(--kai);
+}
+.hero__line {
+  width: 1px;
+  height: 64px;
+  margin: 32px auto 26px;
+  background: linear-gradient(180deg, rgba(35, 32, 27, 0.34), transparent);
+}
+/* 滚动诗句：古朴「题诗笺」——双线画框、一角钤印、上下如意纹、淡纸纹底 */
+.hero__poem {
+  position: relative;
+  max-width: 800px;
+  animation: poemBreath 7s ease-in-out infinite;
+  margin: 0 auto;
+  padding: 38px 80px 34px;
+  border: 1px solid color-mix(in srgb, var(--seal) 26%, transparent);
+  border-radius: 2px;
+  background-color: #f7f0de;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23p)' opacity='0.24'/%3E%3C/svg%3E"),
+    radial-gradient(120% 90% at 18% 12%, rgba(255, 253, 246, 0.95), transparent 62%),
+    radial-gradient(120% 100% at 84% 96%, rgba(206, 188, 152, 0.35), transparent 66%);
+  box-shadow:
+    0 12px 30px rgba(35, 32, 27, 0.08),
+    inset 0 0 46px rgba(196, 175, 136, 0.22);
+  font-family: var(--kai);
+  font-size: clamp(23px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1.75;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  min-height: 3.4em;
+  text-shadow: 0 1px 0 rgba(255, 253, 246, 0.85);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+@keyframes poemBreath {
+  0%, 100% { box-shadow: 0 12px 30px rgba(35, 32, 27, 0.08), inset 0 0 46px rgba(196, 175, 136, 0.22); }
+  50% { box-shadow: 0 20px 44px rgba(35, 32, 27, 0.14), inset 0 0 60px rgba(196, 175, 136, 0.32); }
+}
+/* 内层细线画框 */
+.hero__poem::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid color-mix(in srgb, var(--seal) 20%, transparent);
+  border-radius: 1px;
+  pointer-events: none;
+}
+/* 左下角双线装饰 */
+.hero__poem::after {
+  content: "";
+  position: absolute;
+  left: 17px;
+  bottom: 15px;
+  width: 34px;
+  height: 3px;
+  border-top: 1px solid color-mix(in srgb, var(--seal) 42%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--seal) 24%, transparent);
+  pointer-events: none;
+}
+/* 署名：前置朱砂短横（与诗句同为加粗） */
+.hero__poem cite {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--kai);
+  font-style: normal;
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--seal);
+  opacity: 0.94;
+}
+.hero__poem cite::before {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 2px;
+  margin: 0 auto 12px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--seal) 62%, transparent), transparent);
+}
+@media (max-width: 720px) {
+  .hero__poem {
+    padding: 28px 46px 24px;
+    font-size: clamp(20px, 5.2vw, 26px);
+    line-height: 1.7;
+  }
+  .hero__poem::before { inset: 5px; }
+  .hero__poem::after { display: none; }
+  .hero__poem cite { font-size: 15.4px; margin-top: 13px; }
+}
+
+.hero__actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero__scroll {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-size: 13.2px;
+  letter-spacing: 0.34em;
+  color: var(--ink-3);
+  text-align: center;
+}
+.hero__scroll i {
+  display: block;
+  width: 1px;
+  height: 42px;
+  margin: 10px auto 0;
+  background: rgba(35, 32, 27, 0.28);
+  animation: drop 2.4s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes drop {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ---------- 5. 鎸夐挳 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 26px;
+  border-radius: 3px;
+  font-size: 16.5px;
+  letter-spacing: 0.16em;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  background: rgba(255, 253, 246, 0.5);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  font-family: var(--sans);
+}
+.btn:hover { background: rgba(255, 253, 246, 0.98); border-color: var(--accent); color: var(--ink); transform: translateY(-4px) scale(1.03); box-shadow: var(--shadow-m); }
+.btn--solid {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fdf8ee;
+}
+.btn--solid:hover { background: #345c45; border-color: #345c45; color: #fdf8ee; box-shadow: 0 10px 26px rgba(52, 92, 69, 0.32); }
+.btn--ink {
+  color: var(--ink);
+  border-color: var(--line);
+  background: transparent;
+}
+.btn--ink:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+/* ---------- 6. 浠婃棩鑺傛皵 ---------- */
+.today {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0;
+  background: rgba(255, 253, 246, 0.72);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-m);
+  overflow: hidden;
+}
+.today__main {
+  padding: 44px 46px;
+  position: relative;
+}
+.today__main::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--accent);
+}
+.today__label {
+  font-size: 14.3px;
+  letter-spacing: 0.34em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.today__name, .today__name {
+  font-family: var(--serif);
+  font-family: var(--brush);
+  font-weight: 400;
+  font-size: clamp(42px, 6.2vw, 72px);
+  color: var(--accent);
+  line-height: 1.1;
+  margin: 12px 0 6px;
+  letter-spacing: 0.06em;
+}
+.today__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  font-size: 15.9px;
+  color: var(--ink-3);
+  margin-bottom: 18px;
+}
+.today__meta b { color: var(--ink-2); font-weight: 600; }
+.today__line {
+  font-family: var(--kai);
+  font-size: 18px;
+  color: var(--ink-2);
+  letter-spacing: 0.06em;
+}
+.today__side {
+  padding: 44px 40px;
+  background: rgba(224, 211, 184, 0.32);
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+.mini-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line);
+}
+.mini-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.mini-row dt { font-size: 14.8px; letter-spacing: 0.2em; color: var(--ink-3); }
+.mini-row dd { margin: 0; font-family: var(--serif); font-size: 21.2px; color: var(--ink); }
+.bar {
+  height: 6px;
+  border-radius: 4px;
+  background: var(--paper-3);
+  overflow: hidden;
+  margin-top: 8px;
+}
+.bar > i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 1.1s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+
+/* ---------- 7. 鑺傛皵鐩?---------- */
+.wheel-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 48px;
+  align-items: center;
+}
+.wheel-box {
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 253, 246, 0.9), rgba(236, 226, 205, 0.55));
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  padding: 22px;
+  box-shadow: var(--shadow-m);
+}
+.wheel { width: 100%; height: auto; overflow: visible; }
+.wheel__seg { cursor: pointer; }
+.wheel__seg .seg-fill {
+  fill: var(--seg-color, var(--accent));
+  opacity: 0.1;
+  stroke: rgba(35, 32, 27, 0.12);
+  stroke-width: 0.6;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform-origin: 250px 250px;
+}
+.wheel__seg .seg-label {
+  font-family: var(--serif);
+  font-size: 17px;
+  fill: #fbf6ea;
+  dominant-baseline: middle;
+  text-anchor: middle;
+  transition: fill 0.3s ease;
+  letter-spacing: 0;
+}
+.wheel__seg .seg-name {
+  font-family: var(--serif);
+  font-size: 21.2px;
+  font-weight: 600;
+  fill: #fdf8ee;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+.wheel__seg.is-active .seg-fill,
+.wheel__seg:hover .seg-fill { opacity: 1; }
+.wheel__seg.is-dim .seg-fill { opacity: 0.05; }
+.wheel__ring-text {
+  font-family: var(--serif);
+  font-size: 13.2px;
+  fill: var(--ink-3);
+  letter-spacing: 2px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.wheel__core-name, .wheel__core-name {
+  font-family: var(--brush);
+  font-size: 33px;
+  fill: var(--ink);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: 1px;
+}
+.wheel__core-sub {
+  font-family: var(--sans);
+  font-size: 13.2px;
+  fill: var(--ink-3);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: 1.6px;
+}
+.wheel__core-date {
+  font-family: var(--serif);
+  font-size: 15.4px;
+  fill: var(--accent);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: 1px;
+}
+.wheel__link {
+  position: absolute;
+  inset: 34%;
+  border-radius: 50%;
+  z-index: 2;
+  display: block;
+}
+
+.wheel-side { border-left: 1px solid var(--line); padding-left: 40px; }
+.wheel-side__name {
+  font-family: var(--serif);
+  font-size: 36px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+.wheel-side__pinyin {
+  font-size: 14.3px;
+  letter-spacing: 0.3em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.wheel-side__line {
+  font-family: var(--kai);
+  font-size: 17.5px;
+  margin: 16px 0;
+  color: var(--ink-2);
+  min-height: 3.4em;
+}
+.wheel-side__hint { font-size: 15.4px; color: var(--ink-3); }
+.wheel-side .btn { margin-top: 18px; }
+
+/* ---------- 7A. 节气诗话 ---------- */
+.poem-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+  gap: 0 34px;
+  border-top: 1px solid var(--line);
+}
+.poem-line {
+  display: grid;
+  grid-template-columns: 4.2em 1fr auto;
+  align-items: baseline;
+  gap: 14px;
+  padding: 13px 4px;
+  border-bottom: 1px dashed var(--line);
+  transition: background 0.32s ease, padding-left 0.32s ease, box-shadow 0.32s ease;
+}
+.poem-line:hover {
+  background: rgba(255, 253, 246, 0.8);
+  padding-left: 12px;
+  box-shadow: inset 3px 0 0 var(--pc, var(--accent));
+}
+.poem-line__term {
+  font-family: var(--brush);
+  font-weight: 400;
+  font-size: 21.5px;
+  letter-spacing: 0.08em;
+  color: var(--pc, var(--accent));
+  white-space: nowrap;
+}
+.poem-line__lines {
+  font-family: var(--kai);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+.poem-line__src {
+  font-size: 13.8px;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .poem-list { grid-template-columns: 1fr; }
+  .poem-line { grid-template-columns: 3.6em 1fr; gap: 10px; }
+  .poem-line__src { grid-column: 2; font-size: 13.2px; }
+}
+
+/* ---------- 8. 节气卡片网格 ---------- */
+.grid-season {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+.season-block {
+  border-top: 3px solid var(--sc);
+  padding-top: 20px;
+}
+.season-block__head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.season-block__title {
+  font-family: var(--serif);
+  font-size: 25.4px;
+  color: var(--sc);
+  letter-spacing: 0.1em;
+}
+.season-block__en {
+  font-size: 13.2px;
+  letter-spacing: 0.24em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.term-card {
+  display: block;
+  position: relative;
+  padding: 16px 18px 16px 58px;
+  background: rgba(255, 253, 246, 0.62);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease, background 0.32s ease;
+}
+.term-card:hover {
+  transform: translateY(-6px) scale(1.014);
+  box-shadow: var(--shadow-m);
+  border-color: color-mix(in srgb, var(--sc, var(--accent)) 55%, transparent);
+  background: rgba(255, 253, 246, 0.95);
+}
+.term-card__idx {
+  position: absolute;
+  left: 16px;
+  top: 15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--sc, var(--accent));
+  color: #fdf8ee;
+  font-family: var(--serif);
+  font-size: 16.5px;
+  line-height: 30px;
+  text-align: center;
+  opacity: 0.9;
+}
+.term-card__name, .term-card__name {
+  font-family: var(--brush);
+  font-weight: 400;
+  font-size: 21.5px;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+}
+.term-card__date {
+  font-size: 14.8px;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+}
+.term-card__line {
+  font-size: 15.4px;
+  color: var(--ink-3);
+  margin-top: 4px;
+  font-family: var(--kai);
+}
+.term-card__arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sc, var(--accent));
+  opacity: 0;
+  transition: opacity 0.3s ease, right 0.3s ease;
+  font-size: 17px;
+}
+.term-card:hover .term-card__arrow { opacity: 1; right: 13px; }
+.term-card.is-current { border-color: var(--sc); box-shadow: 0 0 0 1px var(--sc) inset; }
+.term-card__badge {
+  position: absolute;
+  right: 12px;
+  top: 11px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  background: var(--sc);
+  color: #fdf8ee;
+  padding: 1px 7px;
+  border-radius: 2px;
+}
+
+/* ---------- 9. 鏃堕棿杞?---------- */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(255, 253, 246, 0.5);
+}
+.timeline__col { padding: 26px 22px 30px; border-right: 1px solid var(--line); }
+.timeline__col:last-child { border-right: 0; }
+.timeline__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--sc);
+  margin-bottom: 16px;
+}
+.timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sc);
+  flex: none;
+}
+.timeline__title { font-family: var(--serif); font-size: 21.2px; color: var(--sc); letter-spacing: 0.12em; }
+.timeline__months { margin-left: auto; font-size: 13.8px; color: var(--ink-3); letter-spacing: 0.1em; }
+.timeline__item {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 16.5px;
+  transition: padding-left 0.25s ease, color 0.25s ease;
+}
+.timeline__item:last-child { border-bottom: 0; }
+.timeline__item:hover { padding-left: 6px; color: var(--sc); }
+.timeline__item b, .timeline__item b { font-family: var(--brush); font-weight: 400; font-size: 18.5px; letter-spacing: 0.02em; }
+.timeline__item span { margin-left: auto; font-size: 14.3px; color: var(--ink-3); }
+
+/* ---------- 10. 鏂囧寲闀垮嵎 ---------- */
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+.card {
+  background: rgba(255, 253, 246, 0.66);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 30px 32px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card:hover { transform: translateY(-8px) scale(1.012); box-shadow: var(--shadow-l); }
+.card__tag {
+  display: inline-block;
+  font-size: 13.2px;
+  letter-spacing: 0.28em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.card h3 { font-size: 23.3px; margin-bottom: 12px; letter-spacing: 0.06em; }
+.card p:last-child { margin-bottom: 0; }
+.card--wide { grid-column: 1 / -1; }
+
+.prose { max-width: 780px; }
+.prose h3 { font-size: 22.3px; margin: 34px 0 12px; }
+.prose h3:first-child { margin-top: 0; }
+.prose p { color: var(--ink-2); }
+.prose ol, .prose ul { padding-left: 1.3em; color: var(--ink-2); }
+.prose li { margin: 6px 0; }
+.prose strong { color: var(--ink); }
+
+.quote-block {
+  border-left: 3px solid var(--accent);
+  padding: 6px 0 6px 20px;
+  font-family: var(--kai);
+  font-size: 18px;
+  color: var(--ink-2);
+  margin: 22px 0;
+}
+.quote-block cite { display: block; font-style: normal; font-size: 14.8px; color: var(--ink-3); margin-top: 6px; letter-spacing: 0.14em; }
+
+/* 涓冨崄浜屽€?*/
+.hou-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+.hou {
+  background: rgba(255, 253, 246, 0.6);
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--sc, var(--accent));
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.hou b { display: block; font-family: var(--serif); font-size: 17px; color: var(--ink); letter-spacing: 0.06em; }
+.hou span { font-size: 15.4px; color: var(--ink-3); }
+.hou em { display: block; font-style: normal; font-size: 13.2px; letter-spacing: 0.2em; color: var(--sc); margin-bottom: 4px; }
+
+/* 鏃惰景 */
+.shichen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
+  gap: 10px;
+}
+.shichen__item {
+  text-align: center;
+  padding: 16px 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: rgba(255, 253, 246, 0.5);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.shichen__item:hover { background: rgba(255, 253, 246, 0.98); transform: translateY(-6px) scale(1.03); box-shadow: var(--shadow-m); }
+.shichen__item b { display: block; font-family: var(--serif); font-size: 20.1px; color: var(--accent); }
+.shichen__item span { font-size: 13.8px; color: var(--ink-3); letter-spacing: 0.06em; }
+.shichen__item i { display: block; font-style: normal; font-family: var(--serif); font-size: 15.4px; color: var(--ink-2); }
+
+/* ---------- 11. 鑺傛皵鎬昏椤?---------- */
+.page-head {
+  padding: calc(var(--nav-h) + 78px) 0 54px;
+  background:
+    radial-gradient(circle at 84% 12%, rgba(88, 137, 106, 0.20), transparent 52%),
+    radial-gradient(circle at 12% 96%, rgba(187, 139, 47, 0.16), transparent 48%),
+    linear-gradient(180deg, #faf7ee 0%, #f4eee0 62%, var(--paper) 100%);
+  color: var(--ink-2);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.page-head::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  bottom: -160px;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(171, 69, 55, 0.16), transparent 62%);
+}
+.page-head .wrap { z-index: 2; }
+.page-head__title, .page-head__title { font-family: var(--brush); font-weight: 400; font-size: clamp(36px, 6.4vw, 68px); color: var(--ink); letter-spacing: 0.05em; }
+.page-head__en { font-size: 13.8px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink-3); margin-top: 14px; }
+.page-head__desc { max-width: 720px; margin-top: 20px; color: var(--ink-2); font-size: 16.4px; }
+
+.crumbs { font-size: 14.8px; letter-spacing: 0.12em; color: var(--ink-3); margin-bottom: 22px; }
+.crumbs a:hover { color: var(--accent); }
+.crumbs span { margin: 0 8px; opacity: 0.5; }
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  padding: 18px 20px;
+  background: rgba(255, 253, 246, 0.75);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: 30px;
+  position: sticky;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+}
+.search {
+  flex: 1 1 240px;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.search input {
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 16.5px;
+  color: var(--ink);
+  width: 100%;
+}
+.search svg { flex: none; opacity: 0.5; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 100px;
+  padding: 7px 18px;
+  font-size: 15.9px;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all 0.28s ease;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip.is-active { background: var(--accent); border-color: var(--accent); color: #fdf8ee; }
+.chip[data-season="spring"].is-active { background: var(--c-spring); border-color: var(--c-spring); }
+.chip[data-season="summer"].is-active { background: var(--c-summer); border-color: var(--c-summer); }
+.chip[data-season="autumn"].is-active { background: var(--c-autumn); border-color: var(--c-autumn); }
+.chip[data-season="winter"].is-active { background: var(--c-winter); border-color: var(--c-winter); }
+.result-count { font-size: 14.8px; color: var(--ink-3); letter-spacing: 0.1em; }
+
+.term-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.tile {
+  position: relative;
+  display: block;
+  background: rgba(255, 253, 246, 0.72);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 26px 22px;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.tile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--sc);
+  transform: scaleX(0.22);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+.tile:hover { transform: translateY(-9px) scale(1.015); box-shadow: var(--shadow-l); }
+.tile:hover::before { transform: scaleX(1); }
+.tile__idx {
+  font-family: var(--serif);
+  font-size: 15.4px;
+  letter-spacing: 0.2em;
+  color: var(--sc);
+}
+.tile__name, .tile__name {
+  font-family: var(--brush);
+  font-weight: 400;
+  font-size: 33px;
+  color: var(--ink);
+  letter-spacing: 0.1em;
+  margin: 8px 0 2px;
+}
+.tile__pinyin { font-size: 13.2px; letter-spacing: 0.28em; color: var(--ink-3); text-transform: uppercase; }
+.tile__en { font-size: 14.3px; color: var(--ink-3); margin-top: 10px; letter-spacing: 0.04em; }
+.tile__line { font-family: var(--kai); font-size: 15.9px; color: var(--ink-2); margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.tile__date {
+  position: absolute;
+  right: 20px;
+  top: 24px;
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--sc);
+  opacity: 0.85;
+}
+.tile.is-hidden { display: none; }
+
+.empty {
+  text-align: center;
+  padding: 70px 20px;
+  color: var(--ink-3);
+  font-family: var(--kai);
+  font-size: 18px;
+}
+.empty[hidden] { display: none; }
+
+/* ---------- 12. 璇︽儏椤?---------- */
+/* 鐢ㄦ湰椤佃妭姘旂殑涓婚鑹插仛銆屾贰褰╁绾搞€嶅ご鍥撅細搴曡壊娴呫€佸眰娆￠潬鑹茬浉鍖哄垎 */
+.detail-head {
+  position: relative;
+  padding: calc(var(--nav-h) + 70px) 0 66px;
+  background:
+    radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 56%),
+    radial-gradient(circle at 10% 100%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 52%),
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 15%, #f7f3e9), color-mix(in srgb, var(--accent) 7%, #f1e9d8));
+  color: color-mix(in srgb, var(--accent) 30%, #23201b);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.detail-head__glow {
+  position: absolute;
+  right: -140px;
+  top: -140px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 30%, transparent), transparent 66%);
+  opacity: 0.55;
+}
+.detail-head__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.detail-head__eyebrow {
+  font-size: 14.3px;
+  letter-spacing: 0.4em;
+  color: color-mix(in srgb, var(--accent) 62%, #4a443a);
+  text-transform: uppercase;
+}
+.detail-head__name, .detail-head__name {
+  font-family: var(--serif);
+  font-family: var(--brush);
+  font-weight: 400;
+  font-size: clamp(48px, 9.2vw, 96px);
+  line-height: 1.14;
+  color: color-mix(in srgb, var(--accent) 48%, #1d1a16);
+  letter-spacing: 0.05em;
+  margin: 12px 0 10px;
+  text-shadow: 0 10px 26px rgba(35, 32, 27, 0.08);
+}
+.detail-head__pinyin { font-size: 15.4px; letter-spacing: 0.36em; color: color-mix(in srgb, var(--accent) 42%, #6f6759); text-transform: uppercase; }
+.detail-head__line {
+  font-family: var(--kai);
+  font-size: clamp(16px, 2vw, 21px);
+  letter-spacing: 0.1em;
+  margin-top: 22px;
+  color: color-mix(in srgb, var(--accent) 34%, #322c24);
+}
+.detail-head__tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; list-style: none; padding: 0; }
+.detail-head__tags li {
+  font-size: 14.8px;
+  letter-spacing: 0.14em;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  background: rgba(255, 253, 246, 0.5);
+  border-radius: 100px;
+  padding: 5px 15px;
+  color: color-mix(in srgb, var(--accent) 46%, #423b32);
+}
+.detail-head__hour {
+  margin-top: 16px;
+  font-size: 14.8px;
+  letter-spacing: 0.16em;
+  color: color-mix(in srgb, var(--accent) 30%, #7a7264);
+  animation: itemIn 0.9s cubic-bezier(0.22, 0.68, 0.24, 1) 0.5s both;
+}
+.detail-head__hour b {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: color-mix(in srgb, var(--accent) 50%, #221f1a);
+  font-weight: 600;
+}
+.seal-big {
+  width: 168px;
+  height: 168px;
+  border: 2px solid color-mix(in srgb, var(--accent) 52%, transparent);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--serif);
+  color: color-mix(in srgb, var(--accent) 62%, #1d1a16);
+  background: rgba(255, 253, 246, 0.52);
+  box-shadow: inset 0 0 40px color-mix(in srgb, var(--accent) 12%, transparent), var(--shadow-s);
+}
+.seal-big b, .seal-big b { font-family: var(--brush); font-size: 44px; letter-spacing: 2px; font-weight: 400; }
+.seal-big span { font-size: 13.2px; letter-spacing: 0.28em; opacity: 0.75; }
+
+.detail-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 30px;
+  margin-top: 40px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.detail-nav a, .detail-nav a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--brush);
+  font-size: 22.5px;
+  color: var(--ink);
+  transition: color 0.28s ease, transform 0.28s ease;
+}
+.detail-nav a:hover { color: var(--accent); transform: translateY(-2px); }
+.detail-nav small { font-family: var(--sans); font-size: 13.8px; letter-spacing: 0.24em; color: var(--ink-3); text-transform: uppercase; }
+.detail-nav .is-next { align-items: flex-end; text-align: right; }
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.fact { background: rgba(255, 253, 246, 0.8); padding: 22px 24px; }
+.fact dt { font-size: 13.8px; letter-spacing: 0.26em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 8px; }
+.fact dd, .fact dd { margin: 0; font-family: var(--brush); font-size: 21.5px; color: var(--ink); letter-spacing: 0.04em; line-height: 1.5; }
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+.poem {
+  font-family: var(--kai);
+  background: linear-gradient(180deg, rgba(255, 253, 246, 0.86), rgba(236, 226, 205, 0.7));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 34px 36px;
+  position: relative;
+}
+.poem::before {
+  content: "瑭?;
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  font-family: var(--serif);
+  font-size: 61.5px;
+  color: var(--accent);
+  opacity: 0.12;
+}
+.poem__title, .poem__title { font-family: var(--brush); font-size: 22.5px; color: var(--ink); letter-spacing: 0.08em; }
+.poem__author { font-size: 14.8px; color: var(--ink-3); letter-spacing: 0.16em; margin-bottom: 18px; }
+.poem__body { font-size: 18px; line-height: 2.3; letter-spacing: 0.1em; color: var(--ink-2); white-space: pre-line; }
+.poem__note { font-family: var(--sans); font-size: 15.4px; color: var(--ink-3); margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--line); letter-spacing: 0.02em; }
+
+.hou-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.hou-list li {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 18px 22px;
+  background: rgba(255, 253, 246, 0.66);
+  border: 1px solid var(--line-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+}
+.hou-list b {
+  font-family: var(--serif);
+  font-size: 23.3px;
+  color: var(--accent);
+  flex: none;
+  letter-spacing: 0.06em;
+}
+.hou-list span { font-family: var(--kai); font-size: 17px; color: var(--ink-2); }
+.hou-list small { display: block; font-family: var(--sans); font-size: 14.3px; color: var(--ink-3); margin-top: 4px; letter-spacing: 0.1em; }
+
+.customs { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.customs li { padding-left: 26px; position: relative; color: var(--ink-2); }
+.customs li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+.customs b { color: var(--ink); font-family: var(--serif); letter-spacing: 0.06em; }
+
+/* ---------- 13. 椤佃剼 ---------- */
+.footer {
+  background:
+    radial-gradient(circle at 88% 0%, rgba(88, 137, 106, 0.12), transparent 46%),
+    radial-gradient(circle at 6% 100%, rgba(187, 139, 47, 0.12), transparent 46%),
+    linear-gradient(180deg, var(--paper) 0%, #ece2cd 100%);
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  padding: 64px 0 30px;
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+}
+.footer h4 { color: var(--ink); font-size: 17px; letter-spacing: 0.16em; margin-bottom: 16px; }
+.footer p { font-size: 15.9px; line-height: 2; }
+.footer ul { list-style: none; padding: 0; margin: 0; columns: 2; }
+.footer li { font-size: 15.9px; padding: 3px 0; }
+.footer a:hover { color: var(--accent); }
+.footer__brand { font-family: var(--serif); font-size: 23.3px; color: var(--ink); letter-spacing: 0.2em; margin-bottom: 12px; }
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px 22px;
+  flex-wrap: wrap;
+  padding-top: 22px;
+  font-size: 14.8px;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+}
+
+/* 页脚信封图标（古典书信样式）+ 邮箱地址：点击即复制 */
+.mail-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 15px 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: rgba(255, 253, 246, 0.6);
+  color: var(--seal);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.mail-link:hover,
+.mail-link:focus-visible {
+  border-color: var(--seal);
+  background: rgba(168, 50, 31, 0.07);
+  box-shadow: var(--shadow-s);
+  transform: translateY(-2px);
+  outline: none;
+}
+.mail-link:active { transform: translateY(0); }
+.mail-link__icon { display: inline-flex; }
+.mail-link__icon svg { display: block; transition: transform 0.4s cubic-bezier(0.22, 0.68, 0.24, 1); }
+.mail-link:hover .mail-link__icon svg,
+.mail-link:focus-visible .mail-link__icon svg { transform: translateY(-2px) rotate(-6deg); }
+.mail-link__text {
+  font-family: var(--sans);
+  font-size: 15.4px;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+.mail-link:hover .mail-link__text,
+.mail-link:focus-visible .mail-link__text { color: var(--seal); }
+
+/* 「邮箱已复制」提示：绝对定位，不改变页脚布局 */
+.mail-link__copied {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  margin-right: 12px;
+  transform: translateY(-50%) translateX(8px);
+  padding: 4px 13px;
+  border-radius: 100px;
+  background: var(--seal);
+  color: #fff8ec;
+  font-family: var(--sans);
+  font-size: 14.3px;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgba(168, 50, 31, 0.28);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 0.68, 0.24, 1), visibility 0.3s ease;
+}
+.mail-link__copied::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-top: -5px;
+  border: 5px solid transparent;
+  border-left-color: var(--seal);
+}
+.mail-link__copied.is-on { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); }
+.mail-link__copied.is-error { background: var(--ink-2); }
+.mail-link__copied.is-error::after { border-left-color: var(--ink-2); }
+/* 窄屏时提示改到按钮上方，避免超出左边界 */
+@media (max-width: 640px) {
+  .mail-link__copied {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: 100%;
+    margin: 0 0 10px;
+    transform: translateX(-50%) translateY(6px);
+  }
+  .mail-link__copied::after {
+    left: 50%;
+    top: 100%;
+    margin: 0 0 0 -5px;
+    border-left-color: transparent;
+    border-top-color: var(--seal);
+  }
+  .mail-link__copied.is-on { transform: translateX(-50%) translateY(0); }
+  .mail-link__copied.is-error::after { border-top-color: var(--ink-2); }
+}
+
+/* ---------- 14. 鍔ㄦ晥 ---------- */
+.reveal { opacity: 0; transform: translateY(46px) scale(0.99); }
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1.1s cubic-bezier(0.22, 0.68, 0.24, 1), transform 1.1s cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .reveal.is-in { transition: none; }
+}
+
+.to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(255, 253, 246, 0.92);
+  color: var(--ink-2);
+  cursor: pointer;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-s);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.35s ease;
+}
+.to-top.is-on { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { background: var(--accent); color: #fdf8ee; border-color: var(--accent); }
+
+/* ---------- 15A. 绮掑瓙灞傦紙涓€宀佷竴椋樿惤锛?---------- */
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.particles.is-on { opacity: 1; }
+
+.motion-toggle {
+  position: fixed;
+  right: 22px;
+  bottom: 78px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(255, 253, 246, 0.92);
+  color: var(--ink-3);
+  cursor: pointer;
+  z-index: 91;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-s);
+  transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.motion-toggle:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); box-shadow: var(--shadow-l); }
+.motion-toggle.is-on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+.motion-toggle::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 54px;
+  white-space: nowrap;
+  font-size: 14.3px;
+  letter-spacing: 0.16em;
+  color: var(--ink-2);
+  background: rgba(255, 253, 246, 0.96);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 5px 10px;
+  opacity: 0;
+  transform: translateX(6px);
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.motion-toggle:hover::after { opacity: 1; transform: none; }
+
+/* 涓昏瑙夊厜鐜宸?+ 鍛煎惛 */
+.hero__ring { will-change: transform; transition: transform 0.7s cubic-bezier(0.22, 0.68, 0.24, 1); }
+.hero__ring--1 { animation: ringBreath 6s ease-in-out infinite; }
+.hero__ring--3 { animation: ringBreath 8.5s ease-in-out infinite reverse; }
+@keyframes ringBreath {
+  0%, 100% { opacity: 0.40; transform: translate(-50%, -50%) scale(0.982); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
+}
+
+/* 鏍囬鎸夊瓧娴叆锛堝姩鐢荤粏鑺傝 15A 娈碉級 */
+
+/* 璇楀彞鍒囨崲 */
+.hero__poem { transition: opacity 0.5s ease, transform 0.5s ease; }
+
+/* 灏忚妭鏍囬鎻忚竟鐢熼暱 */
+.section-head .rule { transition: width 1.15s cubic-bezier(0.22, 0.68, 0.24, 1) 0.12s; width: 0; }
+.reveal.is-in .rule { width: 64px; }
+
+/* 鏁板瓧婊氬姩 */
+.count { display: inline-block; font-variant-numeric: tabular-nums; }
+
+/* 鏃惰景涓庡崱鐗囧井鍔ㄦ晥 */
+.shichen__item:hover b { animation: popIn 0.45s cubic-bezier(0.22, 0.68, 0.24, 1); }
+@keyframes popIn {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.16); }
+  100% { transform: scale(1); }
+}
+.card__tag {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.55s cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+.card:hover .card__tag { background-size: 100% 1px; }
+
+/* 鏃堕棿杞撮」鐩敊宄板叆鍦?*/
+.timeline__item { transition: padding-left 0.25s ease, color 0.25s ease, opacity 0.5s ease; }
+
+/* 鍒楄〃閿欏嘲鍏ュ満锛堢敱鐖剁骇 .reveal.is-in / .is-visible 瑙﹀彂锛?*/
+.reveal .customs li, .is-visible .customs li,
+.reveal .hou-list li, .is-visible .hou-list li,
+.reveal .hou, .is-visible .hou,
+.reveal .facts .fact, .is-visible .facts .fact {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.reveal.is-in .customs li,
+.is-visible .customs li,
+.reveal.is-in .hou-list li,
+.is-visible .hou-list li,
+.reveal.is-in .hou,
+.is-visible .hou,
+.reveal.is-in .facts .fact,
+.is-visible .facts .fact {
+  animation: itemIn 0.95s cubic-bezier(0.22, 0.68, 0.24, 1) forwards;
+  animation-delay: var(--rd, 0ms);
+}
+@keyframes itemIn {
+  from { opacity: 0; transform: translateY(26px) scale(0.985); filter: blur(4px); }
+  60% { filter: blur(0); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* ---------- 15B. 鑺傛皵鐩橈細鏃嬭浆銆佹偓鍋溿€佷腑蹇冭剦鍐?---------- */
+.wheel__ring-dashed { transform-origin: 250px 250px; animation: wheelSpin 120s linear infinite; }
+@keyframes wheelSpin { to { transform: rotate(360deg); } }
+.wheel__seg .seg-fill {
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.22, 0.68, 0.24, 1), filter 0.45s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.wheel__seg:hover .seg-fill,
+.wheel__seg:focus-visible .seg-fill {
+  filter: brightness(1.06) drop-shadow(0 0 6px color-mix(in srgb, var(--seg-color) 55%, transparent));
+}
+.wheel__seg:focus { outline: none; }
+.wheel__seg:focus-visible .seg-name { text-decoration: underline; }
+
+.wheel__core { animation: corePulse 4.5s ease-in-out infinite; transform-origin: 250px 250px; }
+@keyframes corePulse {
+  0%, 100% { opacity: 0.92; transform: scale(0.995); }
+  50% { opacity: 1; transform: scale(1.015); }
+}
+.wheel__core-date { transition: color 0.3s ease; }
+.wheel-box { animation: boxFloat 9s ease-in-out infinite; }
+@keyframes boxFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(0.8deg); }
+}.wheel-side__name, .wheel-side__pinyin, .wheel-side__line { transition: opacity 0.35s ease, transform 0.35s ease; }
+.wheel-side.is-swap .wheel-side__name,
+.wheel-side.is-swap .wheel-side__line { opacity: 0; transform: translateY(8px); }
+
+/* ---------- 15C. 鎬昏绛涢€夊姩鐢?---------- */
+.tile {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.4s ease;
+  animation: tileIn 0.6s cubic-bezier(0.22, 0.68, 0.24, 1) backwards;
+  animation-delay: var(--td, 0ms);
+}
+@keyframes tileIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+.tile.is-hiding { opacity: 0; transform: scale(0.96) translateY(6px); }
+.tile.is-hidden { display: none; }
+
+/* 缁撴灉璁℃暟鑴夊啿 */
+.result-count.is-flash { animation: flash 0.6s ease; }
+@keyframes flash {
+  0% { color: var(--accent); transform: scale(1.08); }
+  100% { color: var(--ink-3); transform: scale(1); }
+}
+
+/* ---------- 15D. 璇︽儏椤碉細澧ㄦ檿銆佸垪琛ㄩ敊宄般€佸嵃绔?---------- */
+.detail-head__glow { animation: glowDrift 11s ease-in-out infinite; }
+@keyframes glowDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  50% { transform: translate(-64px, 46px) scale(1.24); opacity: 0.92; }
+}
+.detail-head__name {
+  animation: nameIn 1.35s cubic-bezier(0.22, 0.68, 0.24, 1) both;
+}
+@keyframes nameIn {
+  from { opacity: 0; transform: translateY(22px); letter-spacing: 0.32em; filter: blur(6px); }
+  to { opacity: 1; transform: none; letter-spacing: 0.14em; filter: none; }
+}
+.detail-head__line { animation: itemIn 1s cubic-bezier(0.22, 0.68, 0.24, 1) 0.25s both; }
+.detail-head__tags li { animation: itemIn 0.8s cubic-bezier(0.22, 0.68, 0.24, 1) both; }
+
+.seal-big { animation: sealIn 1.2s cubic-bezier(0.22, 0.68, 0.24, 1) 0.15s both; }
+@keyframes sealIn {
+  0% { opacity: 0; transform: scale(1.5) rotate(-11deg); }
+  60% { opacity: 1; transform: scale(0.96) rotate(1.5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* 鍛煎惛鐨勮妭姘旇壊鍏夋檿 */
+.section--paper2 {
+  background-size: 200% 100%;
+  animation: paperFlow 16s ease-in-out infinite;
+}
+@keyframes paperFlow {
+  0%, 100% { background-position: 0% 0; }
+  50% { background-position: 100% 0; }
+}
+
+/* 鑺傛皵鍗″綋鍓嶉珮浜懠鍚?*/
+.term-card.is-current { animation: currentPulse 2.8s ease-in-out infinite; }
+@keyframes currentPulse {
+  0%, 100% { box-shadow: 0 0 0 1px var(--sc) inset, 0 0 0 rgba(0, 0, 0, 0); }
+  50% { box-shadow: 0 0 0 1px var(--sc) inset, 0 0 34px color-mix(in srgb, var(--sc) 42%, transparent); }
+}
+
+/* 鍝佺墝鍗扮珷 */
+
+/* 瀵艰埅涓嬪垝绾挎粦鍔?*/
+
+/* 鎸夐挳鍏夋辰 */
+.btn--solid { position: relative; overflow: hidden; }
+.btn--solid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42%;
+  left: -60%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.75s cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+.btn--solid:hover::after { left: 118%; }
+
+/* 婊氬姩杩涘害鏉℃祦鍏?*/
+.progress {
+  background-size: 220% 100%;
+  animation: flow 2.4s linear infinite;
+}
+@keyframes flow { to { background-position: 220% 0; } }
+
+/* 鍥炲埌椤堕儴鍛煎惛 */
+.to-top.is-on { animation: topBreath 4.4s ease-in-out infinite; }
+@keyframes topBreath {
+  0%, 100% { box-shadow: var(--shadow-s); }
+  50% { box-shadow: 0 6px 22px color-mix(in srgb, var(--accent) 30%, transparent); }
+}
+
+/* ---------- 15E. 鍔ㄦ晥鍋忓ソ锛氱粺涓€闄嶇骇 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .particles { display: none !important; }
+  .section-head .rule { width: 64px; }
+  .reveal .customs li, .is-visible .customs li,
+  .reveal .hou-list li, .is-visible .hou-list li,
+  .reveal .hou, .is-visible .hou,
+  .reveal .facts .fact, .is-visible .facts .fact { opacity: 1; transform: none; }
+  .tile { animation: none; }
+  .hero__title span { opacity: 1; transform: none; }
+}
+
+/* ---------- 15. 鍝嶅簲寮?---------- */
+@media (max-width: 1080px) {
+  .nav__modules { display: none; }
+  .wheel-layout { grid-template-columns: 1fr; gap: 34px; }
+  .wheel-side { border-left: 0; border-top: 1px solid var(--line); padding: 26px 0 0; }
+  .grid-season { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeline__col:nth-child(2) { border-right: 0; }
+  .timeline__col:nth-child(1), .timeline__col:nth-child(2) { border-bottom: 1px solid var(--line); }
+}
+
+@media (max-width: 860px) {
+  .today { grid-template-columns: 1fr; }
+  .today__side { border-left: 0; border-top: 1px solid var(--line); }
+  .article-grid { grid-template-columns: 1fr; }
+  .split { grid-template-columns: 1fr; }
+  .detail-head__grid { grid-template-columns: 1fr; }
+  .seal-big { width: 120px; height: 120px; }
+  .seal-big b { font-size: 31.8px; }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  .brand__en { display: none; }
+  .brand { font-size: 21px; letter-spacing: 0.06em; }
+  /* 节气名与时间区间在小屏也一并显示，只缩小字号与间距 */
+  .nav__term { padding: 5px 12px 5px 10px; font-size: 15.5px; gap: 8px; }
+  .nav__inner { gap: 8px; padding: 0 14px; }
+  .nav__term-dot { width: 6px; height: 6px; }
+  .section { padding: 62px 0; }
+  .today__main, .today__side { padding: 30px 24px; }
+  .grid-season { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr; }
+  .timeline__col { border-right: 0 !important; border-bottom: 1px solid var(--line); }
+  .timeline__col:last-child { border-bottom: 0; }
+  .footer__grid { grid-template-columns: 1fr; }
+  .footer ul { columns: 2; }
+  .card { padding: 24px 22px; }
+  .page-head { padding-top: calc(var(--nav-h) + 40px); }
+  .detail-head { padding-top: calc(var(--nav-h) + 36px); }
+  .poem { padding: 26px 22px; }
+  .hou-list li { gap: 12px; padding: 14px 16px; }
+  .toolbar { position: static; }
+  .to-top { right: 14px; bottom: 16px; }
+}
+
+@media (max-width: 420px) {
+  .wrap { padding: 0 18px; }
+  .hero__title { letter-spacing: 0.05em; text-indent: 0.05em; }
+  .term-card { padding-left: 52px; }
+  /* 极窄屏：节气区折到第二行，保证时间区间也能完整显示 */
+  .nav { --nav-h: 104px; }
+  .nav__inner { flex-wrap: wrap; align-content: center; row-gap: 2px; }
+  .nav__term { margin-left: auto; padding: 3px 11px; font-size: 14.8px; gap: 7px; }
+  .brand { font-size: 19px; }
+}
+
+/* ---------- 16. 鎵撳嵃 ---------- */
+@media print {
+  .to-top, .progress, .hero__scroll, .toolbar { display: none !important; }
+  body { background: #fff; }
+  body::after { display: none; }
+  .section { padding: 24px 0; }
+  a { color: var(--ink); }
+}
+
+/* ---------- 18. 首页大标题：固定宋体加粗，且恒为一行 ---------- */
+.hero__title {
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-indent: 0.06em;
+  white-space: nowrap;
+  word-break: keep-all;
+  width: max-content;
+  max-width: 100%;
+  text-shadow: 0 8px 24px rgba(35, 32, 27, 0.12);
+}
+
+
+/* ============ 单文件版附加样式 ============ */
+.term-detail { scroll-margin-top: calc(var(--nav-h) + 18px); }
+.single-page { scroll-margin-top: calc(var(--nav-h) + 18px); }
+.term-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 16px 20px;
+  background: rgba(255, 253, 246, 0.82);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: 28px;
+  position: sticky;
+  top: calc(var(--nav-h) + 8px);
+  z-index: 20;
+  backdrop-filter: blur(10px);
+}
+.term-filter__label { font-size: 13.8px; letter-spacing: 0.24em; color: var(--ink-3); }
+.term-filter .chip { font-size: 15.4px; padding: 6px 15px; }
+.term-filter__search {
+  flex: 0 1 220px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 5px 14px;
+  background: rgba(255, 255, 255, 0.6);
+  margin-left: auto;
+}
+.term-filter__search input {
+  border: 0; outline: none; background: transparent;
+  font-family: var(--sans); font-size: 15.9px; color: var(--ink); width: 100%;
+}
+.term-detail.is-hidden { display: none; }
+.detail-nav { display: none; }
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<div class="progress" aria-hidden="true"></div>
+
+<!-- 顶部导航栏 -->
+<nav class="nav" aria-label="主导航">
+  <div class="nav__inner">
+    <a class="brand" href="#main" aria-label="二十四节气 · 回到顶部">
+      <span class="brand__seal" aria-hidden="true">节</span>
+      <span class="brand__word">
+        二十四节气
+        <span class="brand__en">24 Solar Terms</span>
+      </span>
+    </a>
+    <div class="nav__modules">
+      <a class="nav__mod" href="#today">今日节气</a>
+      <a class="nav__mod" href="#timeline">四时运行</a>
+      <a class="nav__mod" href="#all">节气总表</a>
+      <a class="nav__mod" href="#culture">文化长卷</a>
+      <a class="nav__mod" href="#poetry">节气诗话</a>
+      <a class="nav__mod" href="#shichen">十二时辰</a>
+    </div>
+    <a class="nav__term" href="#today" aria-label="当前节气">
+      <span class="nav__term-dot" aria-hidden="true"></span>
+      <span class="nav__term-name" data-nav-term>—</span>
+      <span class="nav__term-date" data-nav-range>—</span>
+    </a>
+  </div>
+</nav>
+
+<main id="main">
+  <!-- 主视觉 -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__ring hero__ring--1" aria-hidden="true"></div>
+    <div class="hero__ring hero__ring--2" aria-hidden="true"></div>
+    <div class="hero__ring hero__ring--3" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__kicker">THE 24 SOLAR TERMS · 中国人的时间哲学</p>
+      <h1 class="hero__title" data-hero-title>二十四节气</h1>
+      <p class="hero__sub">春雨惊春清谷天，夏满芒夏暑相连。<br>秋处露秋寒霜降，冬雪雪冬小大寒。</p>
+      <div class="hero__line" aria-hidden="true"></div>
+      <blockquote class="hero__poem" data-poem>
+        <span data-poem-text>好雨知时节，当春乃发生。</span>
+        <cite data-poem-cite>唐 · 杜甫《春夜喜雨》</cite>
+      </blockquote>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="#wheel">二十四节气盘</a>
+        <a class="btn" href="#all">二十四节气总表</a>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">SCROLL<i></i></div>
+  </section>
+
+  <!-- 今日节气 -->
+  <section class="section section--tight" id="today">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Now</p>
+        <h2 class="section-title">今日节气<span class="sub">自动推算 · 实时更新</span></h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="today reveal" data-today>
+        <div class="today__main">
+          <p class="today__label" data-today-greet>正在推算……</p>
+          <h3 class="today__name" data-today-name>—</h3>
+          <p class="today__meta">
+            <span>交节日期：<b data-today-start>—</b></span>
+            <span>下一节气：<b data-today-next>—</b></span>
+            <span>距交节：<b data-today-left>—</b></span>
+          </p>
+          <p class="today__line" data-today-line></p>
+          <p style="margin-top:22px"><a class="btn btn--ink" href="#all" data-today-link>查看该节气详情 →</a></p>
+        </div>
+        <div class="today__side">
+          <div>
+            <div class="mini-row">
+              <dt>本节气进度</dt>
+              <dd data-today-pct>0%</dd>
+            </div>
+            <div class="bar"><i data-today-bar></i></div>
+          </div>
+          <div class="mini-row">
+            <dt>节气区间</dt>
+            <dd style="font-size:15px" data-today-range>—</dd>
+          </div>
+          <div class="mini-row">
+            <dt>今日日期</dt>
+            <dd style="font-size:15px" data-today-date>—</dd>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 节气盘 -->
+  <section class="section section--paper2" id="wheel">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">The Wheel</p>
+        <h2 class="section-title">二十四节气盘<span class="sub">悬停预览 · 点击进入</span></h2>
+        <p class="section-desc">以冬至为起点，太阳沿黄道每行 15° 交一个节气，二十四节气首尾相衔，如环无端。</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="wheel-layout">
+        <div class="wheel-box reveal">
+<svg class="wheel" viewBox="0 0 500 500" role="group" aria-label="二十四节气盘" data-wheel>
+  <defs>
+    <radialGradient id="wheelGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffdf6" stop-opacity="0.95"></stop>
+      <stop offset="100%" stop-color="#f0e6d2" stop-opacity="0.6"></stop>
+    </radialGradient>
+  </defs>
+  <circle cx="250" cy="250" r="246" fill="url(#wheelGlow)" stroke="rgba(35,32,27,0.12)"></circle>
+  <circle cx="250" cy="250" r="236" fill="none" stroke="rgba(35,32,27,0.14)" stroke-width="0.8"></circle>
+  <circle cx="250" cy="250" r="124" fill="none" stroke="rgba(35,32,27,0.16)" stroke-width="0.8" stroke-dasharray="2 4" class="wheel__ring-dashed"></circle>
+  <text class="wheel__ring-text" x="250" y="34">北 · 冬</text>
+  <text class="wheel__ring-text" x="466" y="256">东 · 春</text>
+  <text class="wheel__ring-text" x="250" y="478">南 · 夏</text>
+  <text class="wheel__ring-text" x="34" y="256">西 · 秋</text>
+  <g class="wheel__segs">
+      <g class="wheel__seg" tabindex="0" role="link" data-name="立春" data-pinyin="Li Chun" data-date="2月3—5日" data-href="#all" style="--seg-color:#58896a" aria-label="立春，2月3—5日">
+        <path class="seg-fill" d="M19.98 280.28 A128 128 0 0 1 19.98 219.72 L123.10 233.29 A128 128 0 0 0 123.10 266.71 Z"></path>
+        <text class="seg-name" x="70.00" y="239.00">立</text>
+        <text class="seg-label" x="70.00" y="262.00">春</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="雨水" data-pinyin="Yu Shui" data-date="2月18—20日" data-href="#all" style="--seg-color:#58896a" aria-label="雨水，2月18—20日">
+        <path class="seg-fill" d="M19.98 219.72 A128 128 0 0 1 35.66 161.22 L131.74 201.02 A128 128 0 0 0 123.10 233.29 Z"></path>
+        <text class="seg-name" x="76.13" y="192.41">雨</text>
+        <text class="seg-label" x="76.13" y="215.41">水</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="惊蛰" data-pinyin="Jing Zhe" data-date="3月5—7日" data-href="#all" style="--seg-color:#58896a" aria-label="惊蛰，3月5—7日">
+        <path class="seg-fill" d="M35.66 161.22 A128 128 0 0 1 65.94 108.77 L148.45 172.08 A128 128 0 0 0 131.74 201.02 Z"></path>
+        <text class="seg-name" x="94.12" y="149.00">惊</text>
+        <text class="seg-label" x="94.12" y="172.00">蛰</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="春分" data-pinyin="Chun Fen" data-date="3月20—22日" data-href="#all" style="--seg-color:#58896a" aria-label="春分，3月20—22日">
+        <path class="seg-fill" d="M65.94 108.77 A128 128 0 0 1 108.77 65.94 L172.08 148.45 A128 128 0 0 0 148.45 172.08 Z"></path>
+        <text class="seg-name" x="122.72" y="111.72">春</text>
+        <text class="seg-label" x="122.72" y="134.72">分</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="清明" data-pinyin="Qing Ming" data-date="4月4—6日" data-href="#all" style="--seg-color:#58896a" aria-label="清明，4月4—6日">
+        <path class="seg-fill" d="M108.77 65.94 A128 128 0 0 1 161.22 35.66 L201.02 131.74 A128 128 0 0 0 172.08 148.45 Z"></path>
+        <text class="seg-name" x="160.00" y="83.12">清</text>
+        <text class="seg-label" x="160.00" y="106.12">明</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="谷雨" data-pinyin="Gu Yu" data-date="4月19—21日" data-href="#all" style="--seg-color:#58896a" aria-label="谷雨，4月19—21日">
+        <path class="seg-fill" d="M161.22 35.66 A128 128 0 0 1 219.72 19.98 L233.29 123.10 A128 128 0 0 0 201.02 131.74 Z"></path>
+        <text class="seg-name" x="203.41" y="65.13">谷</text>
+        <text class="seg-label" x="203.41" y="88.13">雨</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="立夏" data-pinyin="Li Xia" data-date="5月5—7日" data-href="#all" style="--seg-color:#ab4537" aria-label="立夏，5月5—7日">
+        <path class="seg-fill" d="M219.72 19.98 A128 128 0 0 1 280.28 19.98 L266.71 123.10 A128 128 0 0 0 233.29 123.10 Z"></path>
+        <text class="seg-name" x="250.00" y="59.00">立</text>
+        <text class="seg-label" x="250.00" y="82.00">夏</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="小满" data-pinyin="Xiao Man" data-date="5月20—22日" data-href="#all" style="--seg-color:#ab4537" aria-label="小满，5月20—22日">
+        <path class="seg-fill" d="M280.28 19.98 A128 128 0 0 1 338.78 35.66 L298.98 131.74 A128 128 0 0 0 266.71 123.10 Z"></path>
+        <text class="seg-name" x="296.59" y="65.13">小</text>
+        <text class="seg-label" x="296.59" y="88.13">满</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="芒种" data-pinyin="Mang Zhong" data-date="6月5—7日" data-href="#all" style="--seg-color:#ab4537" aria-label="芒种，6月5—7日">
+        <path class="seg-fill" d="M338.78 35.66 A128 128 0 0 1 391.23 65.94 L327.92 148.45 A128 128 0 0 0 298.98 131.74 Z"></path>
+        <text class="seg-name" x="340.00" y="83.12">芒</text>
+        <text class="seg-label" x="340.00" y="106.12">种</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="夏至" data-pinyin="Xia Zhi" data-date="6月21—22日" data-href="#all" style="--seg-color:#ab4537" aria-label="夏至，6月21—22日">
+        <path class="seg-fill" d="M391.23 65.94 A128 128 0 0 1 434.06 108.77 L351.55 172.08 A128 128 0 0 0 327.92 148.45 Z"></path>
+        <text class="seg-name" x="377.28" y="111.72">夏</text>
+        <text class="seg-label" x="377.28" y="134.72">至</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="小暑" data-pinyin="Xiao Shu" data-date="7月6—8日" data-href="#all" style="--seg-color:#ab4537" aria-label="小暑，7月6—8日">
+        <path class="seg-fill" d="M434.06 108.77 A128 128 0 0 1 464.34 161.22 L368.26 201.02 A128 128 0 0 0 351.55 172.08 Z"></path>
+        <text class="seg-name" x="405.88" y="149.00">小</text>
+        <text class="seg-label" x="405.88" y="172.00">暑</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="大暑" data-pinyin="Da Shu" data-date="7月22—24日" data-href="#all" style="--seg-color:#ab4537" aria-label="大暑，7月22—24日">
+        <path class="seg-fill" d="M464.34 161.22 A128 128 0 0 1 480.02 219.72 L376.90 233.29 A128 128 0 0 0 368.26 201.02 Z"></path>
+        <text class="seg-name" x="423.87" y="192.41">大</text>
+        <text class="seg-label" x="423.87" y="215.41">暑</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="立秋" data-pinyin="Li Qiu" data-date="8月7—9日" data-href="#all" style="--seg-color:#bb8b2f" aria-label="立秋，8月7—9日">
+        <path class="seg-fill" d="M480.02 219.72 A128 128 0 0 1 480.02 280.28 L376.90 266.71 A128 128 0 0 0 376.90 233.29 Z"></path>
+        <text class="seg-name" x="430.00" y="239.00">立</text>
+        <text class="seg-label" x="430.00" y="262.00">秋</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="处暑" data-pinyin="Chu Shu" data-date="8月22—24日" data-href="#all" style="--seg-color:#bb8b2f" aria-label="处暑，8月22—24日">
+        <path class="seg-fill" d="M480.02 280.28 A128 128 0 0 1 464.34 338.78 L368.26 298.98 A128 128 0 0 0 376.90 266.71 Z"></path>
+        <text class="seg-name" x="423.87" y="285.59">处</text>
+        <text class="seg-label" x="423.87" y="308.59">暑</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="白露" data-pinyin="Bai Lu" data-date="9月7—9日" data-href="#all" style="--seg-color:#bb8b2f" aria-label="白露，9月7—9日">
+        <path class="seg-fill" d="M464.34 338.78 A128 128 0 0 1 434.06 391.23 L351.55 327.92 A128 128 0 0 0 368.26 298.98 Z"></path>
+        <text class="seg-name" x="405.88" y="329.00">白</text>
+        <text class="seg-label" x="405.88" y="352.00">露</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="秋分" data-pinyin="Qiu Fen" data-date="9月22—24日" data-href="#all" style="--seg-color:#bb8b2f" aria-label="秋分，9月22—24日">
+        <path class="seg-fill" d="M434.06 391.23 A128 128 0 0 1 391.23 434.06 L327.92 351.55 A128 128 0 0 0 351.55 327.92 Z"></path>
+        <text class="seg-name" x="377.28" y="366.28">秋</text>
+        <text class="seg-label" x="377.28" y="389.28">分</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="寒露" data-pinyin="Han Lu" data-date="10月8—9日" data-href="#all" style="--seg-color:#bb8b2f" aria-label="寒露，10月8—9日">
+        <path class="seg-fill" d="M391.23 434.06 A128 128 0 0 1 338.78 464.34 L298.98 368.26 A128 128 0 0 0 327.92 351.55 Z"></path>
+        <text class="seg-name" x="340.00" y="394.88">寒</text>
+        <text class="seg-label" x="340.00" y="417.88">露</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="霜降" data-pinyin="Shuang Jiang" data-date="10月23—24日" data-href="#all" style="--seg-color:#bb8b2f" aria-label="霜降，10月23—24日">
+        <path class="seg-fill" d="M338.78 464.34 A128 128 0 0 1 280.28 480.02 L266.71 376.90 A128 128 0 0 0 298.98 368.26 Z"></path>
+        <text class="seg-name" x="296.59" y="412.87">霜</text>
+        <text class="seg-label" x="296.59" y="435.87">降</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="立冬" data-pinyin="Li Dong" data-date="11月7—8日" data-href="#all" style="--seg-color:#4b6b86" aria-label="立冬，11月7—8日">
+        <path class="seg-fill" d="M280.28 480.02 A128 128 0 0 1 219.72 480.02 L233.29 376.90 A128 128 0 0 0 266.71 376.90 Z"></path>
+        <text class="seg-name" x="250.00" y="419.00">立</text>
+        <text class="seg-label" x="250.00" y="442.00">冬</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="小雪" data-pinyin="Xiao Xue" data-date="11月22—23日" data-href="#all" style="--seg-color:#4b6b86" aria-label="小雪，11月22—23日">
+        <path class="seg-fill" d="M219.72 480.02 A128 128 0 0 1 161.22 464.34 L201.02 368.26 A128 128 0 0 0 233.29 376.90 Z"></path>
+        <text class="seg-name" x="203.41" y="412.87">小</text>
+        <text class="seg-label" x="203.41" y="435.87">雪</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="大雪" data-pinyin="Da Xue" data-date="12月6—8日" data-href="#all" style="--seg-color:#4b6b86" aria-label="大雪，12月6—8日">
+        <path class="seg-fill" d="M161.22 464.34 A128 128 0 0 1 108.77 434.06 L172.08 351.55 A128 128 0 0 0 201.02 368.26 Z"></path>
+        <text class="seg-name" x="160.00" y="394.88">大</text>
+        <text class="seg-label" x="160.00" y="417.88">雪</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="冬至" data-pinyin="Dong Zhi" data-date="12月21—23日" data-href="#all" style="--seg-color:#4b6b86" aria-label="冬至，12月21—23日">
+        <path class="seg-fill" d="M108.77 434.06 A128 128 0 0 1 65.94 391.23 L148.45 327.92 A128 128 0 0 0 172.08 351.55 Z"></path>
+        <text class="seg-name" x="122.72" y="366.28">冬</text>
+        <text class="seg-label" x="122.72" y="389.28">至</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="小寒" data-pinyin="Xiao Han" data-date="1月5—7日" data-href="#all" style="--seg-color:#4b6b86" aria-label="小寒，1月5—7日">
+        <path class="seg-fill" d="M65.94 391.23 A128 128 0 0 1 35.66 338.78 L131.74 298.98 A128 128 0 0 0 148.45 327.92 Z"></path>
+        <text class="seg-name" x="94.12" y="329.00">小</text>
+        <text class="seg-label" x="94.12" y="352.00">寒</text>
+      </g>
+      <g class="wheel__seg" tabindex="0" role="link" data-name="大寒" data-pinyin="Da Han" data-date="1月20—21日" data-href="#all" style="--seg-color:#4b6b86" aria-label="大寒，1月20—21日">
+        <path class="seg-fill" d="M35.66 338.78 A128 128 0 0 1 19.98 280.28 L123.10 266.71 A128 128 0 0 0 131.74 298.98 Z"></path>
+        <text class="seg-name" x="76.13" y="285.59">大</text>
+        <text class="seg-label" x="76.13" y="308.59">寒</text>
+      </g>
+  </g>
+  <g class="wheel__core">
+    <text class="wheel__core-name" x="250" y="240" data-wheel-name>立春</text>
+    <text class="wheel__core-sub" x="250" y="266" data-wheel-sub>LI CHUN</text>
+    <text class="wheel__core-date" x="250" y="290" data-wheel-date>公历 2月3—5日</text>
+  </g>
+</svg>
+<a class="wheel__link" href="#all" data-wheel-link aria-label="查看当前节气详情"></a>
+        </div>
+        <aside class="wheel-side reveal" style="--accent:var(--c-spring)">
+          <div class="wheel-side__name" data-wheel-name>立春</div>
+          <div class="wheel-side__pinyin" data-wheel-sub>LI CHUN</div>
+          <p class="wheel-side__line" data-wheel-line></p>
+          <p class="wheel-side__hint">用鼠标悬停或键盘 Tab 键浏览任意节气，点击圆心或按钮进入详情页。</p>
+          <a class="btn btn--solid" href="#all" data-wheel-link>进入节气详情 →</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 四季时间轴 -->
+  <section class="section" id="timeline">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Timeline</p>
+        <h2 class="section-title">四时运行<span class="sub">春夏秋冬 · 各六节气</span></h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="timeline">
+      <div class="timeline__col reveal" style="--sc:#58896a">
+        <div class="timeline__head">
+          <span class="timeline__dot"></span>
+          <span class="timeline__title">春·生</span>
+          <span class="timeline__months">2—4月</span>
+        </div>
+        <a class="timeline__item" href="#all"><b>立春</b><span>2月3—5日</span></a>
+        <a class="timeline__item" href="#all"><b>雨水</b><span>2月18—20日</span></a>
+        <a class="timeline__item" href="#all"><b>惊蛰</b><span>3月5—7日</span></a>
+        <a class="timeline__item" href="#all"><b>春分</b><span>3月20—22日</span></a>
+        <a class="timeline__item" href="#all"><b>清明</b><span>4月4—6日</span></a>
+        <a class="timeline__item" href="#all"><b>谷雨</b><span>4月19—21日</span></a>
+      </div>
+      <div class="timeline__col reveal" style="--sc:#ab4537">
+        <div class="timeline__head">
+          <span class="timeline__dot"></span>
+          <span class="timeline__title">夏·长</span>
+          <span class="timeline__months">5—7月</span>
+        </div>
+        <a class="timeline__item" href="#all"><b>立夏</b><span>5月5—7日</span></a>
+        <a class="timeline__item" href="#all"><b>小满</b><span>5月20—22日</span></a>
+        <a class="timeline__item" href="#all"><b>芒种</b><span>6月5—7日</span></a>
+        <a class="timeline__item" href="#all"><b>夏至</b><span>6月21—22日</span></a>
+        <a class="timeline__item" href="#all"><b>小暑</b><span>7月6—8日</span></a>
+        <a class="timeline__item" href="#all"><b>大暑</b><span>7月22—24日</span></a>
+      </div>
+      <div class="timeline__col reveal" style="--sc:#bb8b2f">
+        <div class="timeline__head">
+          <span class="timeline__dot"></span>
+          <span class="timeline__title">秋·收</span>
+          <span class="timeline__months">8—10月</span>
+        </div>
+        <a class="timeline__item" href="#all"><b>立秋</b><span>8月7—9日</span></a>
+        <a class="timeline__item" href="#all"><b>处暑</b><span>8月22—24日</span></a>
+        <a class="timeline__item" href="#all"><b>白露</b><span>9月7—9日</span></a>
+        <a class="timeline__item" href="#all"><b>秋分</b><span>9月22—24日</span></a>
+        <a class="timeline__item" href="#all"><b>寒露</b><span>10月8—9日</span></a>
+        <a class="timeline__item" href="#all"><b>霜降</b><span>10月23—24日</span></a>
+      </div>
+      <div class="timeline__col reveal" style="--sc:#4b6b86">
+        <div class="timeline__head">
+          <span class="timeline__dot"></span>
+          <span class="timeline__title">冬·藏</span>
+          <span class="timeline__months">11—1月</span>
+        </div>
+        <a class="timeline__item" href="#all"><b>立冬</b><span>11月7—8日</span></a>
+        <a class="timeline__item" href="#all"><b>小雪</b><span>11月22—23日</span></a>
+        <a class="timeline__item" href="#all"><b>大雪</b><span>12月6—8日</span></a>
+        <a class="timeline__item" href="#all"><b>冬至</b><span>12月21—23日</span></a>
+        <a class="timeline__item" href="#all"><b>小寒</b><span>1月5—7日</span></a>
+        <a class="timeline__item" href="#all"><b>大寒</b><span>1月20—21日</span></a>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 二十四节气总表 -->
+  <section class="section section--paper2" id="all">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">All Terms</p>
+        <h2 class="section-title">二十四节气总表<span class="sub">点击查看时令 · 物候 · 风俗 · 诗词</span></h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="grid-season">
+      <div class="season-block reveal" id="spring" style="--sc:#58896a">
+        <div class="season-block__head">
+          <h3 class="season-block__title">春·生</h3>
+          <span class="season-block__en">Spring · 2—4月</span>
+        </div>
+      <a class="term-card reveal" href="#all" data-term="立春" style="--sc:#58896a">
+        <span class="term-card__idx">1</span>
+        <span class="term-card__name">立春</span>
+        <span class="term-card__date">2月3—5日 · Start of Spring</span>
+        <span class="term-card__line">东风解冻，蛰虫始振，岁首启新。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="雨水" style="--sc:#58896a">
+        <span class="term-card__idx">2</span>
+        <span class="term-card__name">雨水</span>
+        <span class="term-card__date">2月18—20日 · Rain Water</span>
+        <span class="term-card__line">冰雪皆散而为水，天一生水，润物无声。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="惊蛰" style="--sc:#58896a">
+        <span class="term-card__idx">3</span>
+        <span class="term-card__name">惊蛰</span>
+        <span class="term-card__date">3月5—7日 · Awakening of Insects</span>
+        <span class="term-card__line">春雷始鸣，蛰虫惊而出走。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="春分" style="--sc:#58896a">
+        <span class="term-card__idx">4</span>
+        <span class="term-card__name">春分</span>
+        <span class="term-card__date">3月20—22日 · Spring Equinox</span>
+        <span class="term-card__line">昼夜均而寒暑平，阴阳相半。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="清明" style="--sc:#58896a">
+        <span class="term-card__idx">5</span>
+        <span class="term-card__name">清明</span>
+        <span class="term-card__date">4月4—6日 · Pure Brightness</span>
+        <span class="term-card__line">气清景明，万物皆显，慎终追远。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="谷雨" style="--sc:#58896a">
+        <span class="term-card__idx">6</span>
+        <span class="term-card__name">谷雨</span>
+        <span class="term-card__date">4月19—21日 · Grain Rain</span>
+        <span class="term-card__line">雨生百谷，春将尽而夏欲来。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      </div>
+      <div class="season-block reveal" id="summer" style="--sc:#ab4537">
+        <div class="season-block__head">
+          <h3 class="season-block__title">夏·长</h3>
+          <span class="season-block__en">Summer · 5—7月</span>
+        </div>
+      <a class="term-card reveal" href="#all" data-term="立夏" style="--sc:#ab4537">
+        <span class="term-card__idx">7</span>
+        <span class="term-card__name">立夏</span>
+        <span class="term-card__date">5月5—7日 · Start of Summer</span>
+        <span class="term-card__line">万物至此皆长大，绿阴幽草胜花时。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="小满" style="--sc:#ab4537">
+        <span class="term-card__idx">8</span>
+        <span class="term-card__name">小满</span>
+        <span class="term-card__date">5月20—22日 · Lesser Fullness</span>
+        <span class="term-card__line">麦粒渐满而未熟，满而不损，是谓小满。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="芒种" style="--sc:#ab4537">
+        <span class="term-card__idx">9</span>
+        <span class="term-card__name">芒种</span>
+        <span class="term-card__date">6月5—7日 · Grain in Ear</span>
+        <span class="term-card__line">有芒之麦可收，有芒之稻可种。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="夏至" style="--sc:#ab4537">
+        <span class="term-card__idx">10</span>
+        <span class="term-card__name">夏至</span>
+        <span class="term-card__date">6月21—22日 · Summer Solstice</span>
+        <span class="term-card__line">日北至，日长之至，影短至。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="小暑" style="--sc:#ab4537">
+        <span class="term-card__idx">11</span>
+        <span class="term-card__name">小暑</span>
+        <span class="term-card__date">7月6—8日 · Minor Heat</span>
+        <span class="term-card__line">温风至，蟋蟀居壁，鹰始鸷。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="大暑" style="--sc:#ab4537">
+        <span class="term-card__idx">12</span>
+        <span class="term-card__name">大暑</span>
+        <span class="term-card__date">7月22—24日 · Major Heat</span>
+        <span class="term-card__line">腐草为萤，土润溽暑，大雨时行。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      </div>
+      <div class="season-block reveal" id="autumn" style="--sc:#bb8b2f">
+        <div class="season-block__head">
+          <h3 class="season-block__title">秋·收</h3>
+          <span class="season-block__en">Autumn · 8—10月</span>
+        </div>
+      <a class="term-card reveal" href="#all" data-term="立秋" style="--sc:#bb8b2f">
+        <span class="term-card__idx">13</span>
+        <span class="term-card__name">立秋</span>
+        <span class="term-card__date">8月7—9日 · Start of Autumn</span>
+        <span class="term-card__line">凉风至，白露降，寒蝉鸣。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="处暑" style="--sc:#bb8b2f">
+        <span class="term-card__idx">14</span>
+        <span class="term-card__name">处暑</span>
+        <span class="term-card__date">8月22—24日 · End of Heat</span>
+        <span class="term-card__line">暑气至此而止，鹰乃祭鸟，禾乃登。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="白露" style="--sc:#bb8b2f">
+        <span class="term-card__idx">15</span>
+        <span class="term-card__name">白露</span>
+        <span class="term-card__date">9月7—9日 · White Dew</span>
+        <span class="term-card__line">露凝而白，鸿雁来，玄鸟归。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="秋分" style="--sc:#bb8b2f">
+        <span class="term-card__idx">16</span>
+        <span class="term-card__name">秋分</span>
+        <span class="term-card__date">9月22—24日 · Autumn Equinox</span>
+        <span class="term-card__line">昼夜均，寒暑平，雷始收声。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="寒露" style="--sc:#bb8b2f">
+        <span class="term-card__idx">17</span>
+        <span class="term-card__name">寒露</span>
+        <span class="term-card__date">10月8—9日 · Cold Dew</span>
+        <span class="term-card__line">露气寒冷，将凝为霜，菊有黄华。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="霜降" style="--sc:#bb8b2f">
+        <span class="term-card__idx">18</span>
+        <span class="term-card__name">霜降</span>
+        <span class="term-card__date">10月23—24日 · Frost's Descent</span>
+        <span class="term-card__line">气肃而凝，露结为霜，草木黄落。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      </div>
+      <div class="season-block reveal" id="winter" style="--sc:#4b6b86">
+        <div class="season-block__head">
+          <h3 class="season-block__title">冬·藏</h3>
+          <span class="season-block__en">Winter · 11—1月</span>
+        </div>
+      <a class="term-card reveal" href="#all" data-term="立冬" style="--sc:#4b6b86">
+        <span class="term-card__idx">19</span>
+        <span class="term-card__name">立冬</span>
+        <span class="term-card__date">11月7—8日 · Start of Winter</span>
+        <span class="term-card__line">水始冰，地始冻，万物收藏。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="小雪" style="--sc:#4b6b86">
+        <span class="term-card__idx">20</span>
+        <span class="term-card__name">小雪</span>
+        <span class="term-card__date">11月22—23日 · Minor Snow</span>
+        <span class="term-card__line">虹藏不见，天气上升，地气下降。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="大雪" style="--sc:#4b6b86">
+        <span class="term-card__idx">21</span>
+        <span class="term-card__name">大雪</span>
+        <span class="term-card__date">12月6—8日 · Major Snow</span>
+        <span class="term-card__line">至此而雪盛也，鹖鴠不鸣，荔挺出。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="冬至" style="--sc:#4b6b86">
+        <span class="term-card__idx">22</span>
+        <span class="term-card__name">冬至</span>
+        <span class="term-card__date">12月21—23日 · Winter Solstice</span>
+        <span class="term-card__line">日南至，日短之至，影长之至，阳气始生。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="小寒" style="--sc:#4b6b86">
+        <span class="term-card__idx">23</span>
+        <span class="term-card__name">小寒</span>
+        <span class="term-card__date">1月5—7日 · Minor Cold</span>
+        <span class="term-card__line">冷气积久而寒，雁北乡，鹊始巢。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="term-card reveal" href="#all" data-term="大寒" style="--sc:#4b6b86">
+        <span class="term-card__idx">24</span>
+        <span class="term-card__name">大寒</span>
+        <span class="term-card__date">1月20—21日 · Major Cold</span>
+        <span class="term-card__line">寒气之逆极，鸡始乳，水泽腹坚。</span>
+        <span class="term-card__arrow" aria-hidden="true">→</span>
+      </a>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文化长卷 -->
+  <section class="section" id="culture">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Culture</p>
+        <h2 class="section-title">文化长卷<span class="sub">历法 · 申遗 · 物候 · 农事</span></h2>
+        <p class="section-desc">二十四节气不只是一份历法，它还是中国人理解天地、安排生活、安顿身心的一整套方式。</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="article-grid">
+      <article class="card reveal">
+        <span class="card__tag">历法</span>
+        <h3>以日为尺的太阳历</h3>
+        <p>二十四节气是中国古人通过观测太阳周年视运动而建立的时间知识体系。以地球绕日公转为尺，将黄道等分为二十四段，每段15°，太阳每移动15°即交一个节气。因此节气在公历中的日期非常稳定，上半年多在每月6日、21日前后，下半年多在每月8日、23日前后。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">申遗</span>
+        <h3>人类非物质文化遗产</h3>
+        <p>2016年11月30日，「二十四节气——中国人通过观察太阳周年运动而形成的时间知识体系及其实践」在联合国教科文组织第十一届常会上通过评审，列入人类非物质文化遗产代表作名录。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">物候</span>
+        <h3>七十二候：五天为一候</h3>
+        <p>每个节气分为三候，每候约五天，一年共七十二候。古人以鸟兽草木、风雨霜雪等自然现象为候应，记下物候的细微推移：《吕氏春秋》《礼记·月令》始肇其端，元吴澄《月令七十二候集解》集其大成。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">农事</span>
+        <h3>不误农时的耕作指南</h3>
+        <p>「清明前后，种瓜点豆」「白露早，寒露迟，秋分种麦正当时」——大量农谚依节气而立。节气把天文、气候与农事串成一条链，使播种、管理、收获皆有定准。</p>
+      </article>
+      </div>
+      <div style="margin-top:38px">
+        <h3 style="font-size:20px;margin-bottom:14px">七十二候 · 五天为一候</h3>
+        <div class="hou-grid">
+      <div class="hou" style="--sc:#58896a">
+        <em>立春 · 三候</em>
+        <b>东风解冻 · 蛰虫始振 · 鱼陟负冰</b>
+      </div>
+      <div class="hou" style="--sc:#ab4537">
+        <em>夏至 · 三候</em>
+        <b>鹿角解 · 蜩始鸣 · 半夏生</b>
+      </div>
+      <div class="hou" style="--sc:#bb8b2f">
+        <em>白露 · 三候</em>
+        <b>鸿雁来 · 玄鸟归 · 群鸟养羞</b>
+      </div>
+      <div class="hou" style="--sc:#4b6b86">
+        <em>大雪 · 三候</em>
+        <b>鹖鴠不鸣 · 虎始交 · 荔挺出</b>
+      </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 节气诗话 -->
+  <section class="section section--paper2" id="poetry">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Poetry</p>
+        <h2 class="section-title">节气诗话<span class="sub">二十四节气 · 二十四首时令诗</span></h2>
+        <p class="section-desc">古人以节气为节拍写诗：一句「好雨知时节」是雨水，一句「霜叶红于二月花」是霜降。
+        二十四个节气各取一首，读诗亦读时令。</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="poem-list">
+      <a class="poem-line reveal" href="#all" style="--pc:#58896a"><b class="poem-line__term">立春</b><span class="poem-line__lines">春日春盘细生菜，忽忆两京梅发时。</span><span class="poem-line__src">《立春》 唐 · 杜甫</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#58896a"><b class="poem-line__term">雨水</b><span class="poem-line__lines">好雨知时节，当春乃发生。</span><span class="poem-line__src">《春夜喜雨》 唐 · 杜甫</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#58896a"><b class="poem-line__term">惊蛰</b><span class="poem-line__lines">微雨众卉新，一雷惊蛰始。</span><span class="poem-line__src">《观田家》 唐 · 韦应物</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#58896a"><b class="poem-line__term">春分</b><span class="poem-line__lines">仲春初四日，春色正中分。</span><span class="poem-line__src">《春分日》 唐 · 徐铉</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#58896a"><b class="poem-line__term">清明</b><span class="poem-line__lines">梨花风起正清明，游子寻春半出城。</span><span class="poem-line__src">《苏堤清明即事》 宋 · 吴惟信</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#58896a"><b class="poem-line__term">谷雨</b><span class="poem-line__lines">谷雨如丝复似尘，煮瓶浮蜡正尝新。</span><span class="poem-line__src">《晚春田园杂兴》 宋 · 范成大</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#ab4537"><b class="poem-line__term">立夏</b><span class="poem-line__lines">绿树阴浓夏日长，楼台倒影入池塘。</span><span class="poem-line__src">《山亭夏日》 唐 · 高骈</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#ab4537"><b class="poem-line__term">小满</b><span class="poem-line__lines">南风原头吹百草，草木丛深茅舍小。</span><span class="poem-line__src">《归田园四时乐》 宋 · 欧阳修</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#ab4537"><b class="poem-line__term">芒种</b><span class="poem-line__lines">时雨及芒种，四野皆插秧。</span><span class="poem-line__src">《时雨》 宋 · 陆游</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#ab4537"><b class="poem-line__term">夏至</b><span class="poem-line__lines">昼晷已云极，宵漏自此长。</span><span class="poem-line__src">《夏至避暑北池》 唐 · 韦应物</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#ab4537"><b class="poem-line__term">小暑</b><span class="poem-line__lines">倏忽温风至，因循小暑来。</span><span class="poem-line__src">《小暑六月节》 唐 · 元稹</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#ab4537"><b class="poem-line__term">大暑</b><span class="poem-line__lines">时暑不出门，亦无宾客至。</span><span class="poem-line__src">《夏日闲放》 唐 · 白居易</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#bb8b2f"><b class="poem-line__term">立秋</b><span class="poem-line__lines">乳鸦啼散玉屏空，一枕新凉一扇风。</span><span class="poem-line__src">《立秋》 宋 · 刘翰</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#bb8b2f"><b class="poem-line__term">处暑</b><span class="poem-line__lines">处暑无三日，新凉直万金。</span><span class="poem-line__src">《长江二首》 宋 · 苏泂</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#bb8b2f"><b class="poem-line__term">白露</b><span class="poem-line__lines">白露团甘子，清晨散马蹄。</span><span class="poem-line__src">《白露》 唐 · 杜甫</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#bb8b2f"><b class="poem-line__term">秋分</b><span class="poem-line__lines">自古逢秋悲寂寥，我言秋日胜春朝。</span><span class="poem-line__src">《秋词二首》 唐 · 刘禹锡</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#bb8b2f"><b class="poem-line__term">寒露</b><span class="poem-line__lines">秋丛绕舍似陶家，遍绕篱边日渐斜。</span><span class="poem-line__src">《菊花》 唐 · 元稹</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#bb8b2f"><b class="poem-line__term">霜降</b><span class="poem-line__lines">远上寒山石径斜，白云生处有人家。</span><span class="poem-line__src">《山行》 唐 · 杜牧</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#4b6b86"><b class="poem-line__term">立冬</b><span class="poem-line__lines">冻笔新诗懒写，寒炉美酒时温。</span><span class="poem-line__src">《立冬》 唐 · 李白</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#4b6b86"><b class="poem-line__term">小雪</b><span class="poem-line__lines">花雪随风不厌看，更多还肯失林峦。</span><span class="poem-line__src">《小雪》 唐 · 戴叔伦</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#4b6b86"><b class="poem-line__term">大雪</b><span class="poem-line__lines">千山鸟飞绝，万径人踪灭。</span><span class="poem-line__src">《江雪》 唐 · 柳宗元</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#4b6b86"><b class="poem-line__term">冬至</b><span class="poem-line__lines">天时人事日相催，冬至阳生春又来。</span><span class="poem-line__src">《小至》 唐 · 杜甫</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#4b6b86"><b class="poem-line__term">小寒</b><span class="poem-line__lines">佳辰强饮食犹寒，隐几萧条戴鹖冠。</span><span class="poem-line__src">《小寒食舟中作》 唐 · 杜甫</span></a>
+      <a class="poem-line reveal" href="#all" style="--pc:#4b6b86"><b class="poem-line__term">大寒</b><span class="poem-line__lines">旧雪未及消，新雪又拥户。</span><span class="poem-line__src">《大寒吟》 宋 · 邵雍</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 时辰 -->
+  <section class="section section--paper2" id="shichen">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Hours</p>
+        <h2 class="section-title">十二时辰<span class="sub">一天也是一年的缩影</span></h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="shichen">
+      <div class="shichen__item reveal">
+        <b>子时</b><span>23:00—01:00</span><i>夜半</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>丑时</b><span>01:00—03:00</span><i>鸡鸣</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>寅时</b><span>03:00—05:00</span><i>平旦</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>卯时</b><span>05:00—07:00</span><i>日出</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>辰时</b><span>07:00—09:00</span><i>食时</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>巳时</b><span>09:00—11:00</span><i>隅中</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>午时</b><span>11:00—13:00</span><i>日中</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>未时</b><span>13:00—15:00</span><i>日昳</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>申时</b><span>15:00—17:00</span><i>哺时</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>酉时</b><span>17:00—19:00</span><i>日入</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>戌时</b><span>19:00—21:00</span><i>黄昏</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>亥时</b><span>21:00—23:00</span><i>人定</i>
+      </div>
+      </div>
+    </div>
+  </section>
+
+<section class="single-page" id="page-culture" aria-label="文化长卷">
+  <section class="page-head">
+    <div class="wrap">
+      <h1 class="page-head__title">文化长卷</h1>
+      <p class="page-head__en">Calendar · Heritage · Phenology · Poetry</p>
+      <p class="page-head__desc">二十四节气是中国人通过观察太阳周年运动而形成的时间知识体系及其实践。它把天文、气候、农事、饮食、养生与文学编织在一起，成为一套活在日常里的时间哲学。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Chapter 01</p>
+        <h2 class="section-title">四章总览<span class="sub">历法 · 申遗 · 物候 · 农事</span></h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="article-grid">
+      <article class="card reveal">
+        <span class="card__tag">历法</span>
+        <h3>以日为尺的太阳历</h3>
+        <p>二十四节气是中国古人通过观测太阳周年视运动而建立的时间知识体系。以地球绕日公转为尺，将黄道等分为二十四段，每段15°，太阳每移动15°即交一个节气。因此节气在公历中的日期非常稳定，上半年多在每月6日、21日前后，下半年多在每月8日、23日前后。</p>
+        <p style="color:var(--ink-3);font-size:14px;margin-bottom:0">太阳直射点、黄经、昼夜长短与太阳高度角的变化，共同决定了节气的气候意义。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">申遗</span>
+        <h3>人类非物质文化遗产</h3>
+        <p>2016年11月30日，「二十四节气——中国人通过观察太阳周年运动而形成的时间知识体系及其实践」在联合国教科文组织第十一届常会上通过评审，列入人类非物质文化遗产代表作名录。</p>
+        <p style="color:var(--ink-3);font-size:14px;margin-bottom:0">它被誉为「中国第五大发明」，至今仍活在农事安排、饮食养生与年节习俗之中。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">物候</span>
+        <h3>七十二候：五天为一候</h3>
+        <p>每个节气分为三候，每候约五天，一年共七十二候。古人以鸟兽草木、风雨霜雪等自然现象为候应，记下物候的细微推移：《吕氏春秋》《礼记·月令》始肇其端，元吴澄《月令七十二候集解》集其大成。</p>
+        <p style="color:var(--ink-3);font-size:14px;margin-bottom:0">「东风解冻」「草木萌动」「鸿雁来宾」——这些四字短语是古人的物候观测笔记。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">农事</span>
+        <h3>不误农时的耕作指南</h3>
+        <p>「清明前后，种瓜点豆」「白露早，寒露迟，秋分种麦正当时」——大量农谚依节气而立。节气把天文、气候与农事串成一条链，使播种、管理、收获皆有定准。</p>
+        <p style="color:var(--ink-3);font-size:14px;margin-bottom:0">二十四节气至今仍在指导农业生产，并与各地气候特点结合形成地方性农事历。</p>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper2">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Chapter 02</p>
+        <h2 class="section-title">一岁之候 · 七十二</h2>
+        <p class="section-desc">每节气三候，每候约五日，一年七十二候。以下按节气顺序列出全部候应，是古人留下的物候观测笔记。</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="hou-grid">
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>立春 · 一候</em>
+        <b>东风解冻</b>
+        <span>东风送暖，大地开始解冻。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>立春 · 二候</em>
+        <b>蛰虫始振</b>
+        <span>冬眠的虫类感知阳气，在洞中慢慢苏醒。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>立春 · 三候</em>
+        <b>鱼陟负冰</b>
+        <span>河冰渐融，鱼儿上游至冰面下，仿佛背着碎冰。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>雨水 · 一候</em>
+        <b>獭祭鱼</b>
+        <span>水獭捕鱼后陈列水边，如同祭祀，是古人观察到的物候。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>雨水 · 二候</em>
+        <b>候雁北</b>
+        <span>大雁自南方启程北归，春信渐近。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>雨水 · 三候</em>
+        <b>草木萌动</b>
+        <span>阳气上升，草木抽出细芽。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>惊蛰 · 一候</em>
+        <b>桃始华</b>
+        <span>桃花初绽，是仲春到来的鲜明信号。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>惊蛰 · 二候</em>
+        <b>仓庚鸣</b>
+        <span>黄鹂婉转啼鸣，求偶于枝头。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>惊蛰 · 三候</em>
+        <b>鹰化为鸠</b>
+        <span>古人见鹰渐少、鸠鸟渐多，误以为鹰化为鸠，实为物候更替。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>春分 · 一候</em>
+        <b>玄鸟至</b>
+        <span>燕子自南方归来，衔泥筑巢于屋檐。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>春分 · 二候</em>
+        <b>雷乃发声</b>
+        <span>阳气盛而雷声起，天地之气交鸣。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>春分 · 三候</em>
+        <b>始电</b>
+        <span>闪电初现，雷雨天气开始增多。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>清明 · 一候</em>
+        <b>桐始华</b>
+        <span>泡桐树开花，紫白满枝。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>清明 · 二候</em>
+        <b>田鼠化为鴽</b>
+        <span>田鼠隐入洞穴，鹌鹑类小鸟活跃田间。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>清明 · 三候</em>
+        <b>虹始见</b>
+        <span>雨后天青，彩虹初现。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>谷雨 · 一候</em>
+        <b>萍始生</b>
+        <span>水塘中浮萍开始生长，水气充盈之象。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>谷雨 · 二候</em>
+        <b>鸣鸠拂其羽</b>
+        <span>布谷鸟振翅鸣叫，催促农人播种。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#58896a">
+        <em>谷雨 · 三候</em>
+        <b>戴胜降于桑</b>
+        <span>戴胜鸟落在桑树上，提醒蚕事将兴。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>立夏 · 一候</em>
+        <b>蝼蝈鸣</b>
+        <span>蛙类始鸣，夏声渐起于水泽田间。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>立夏 · 二候</em>
+        <b>蚯蚓出</b>
+        <span>土壤温暖湿润，蚯蚓翻松泥土。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>立夏 · 三候</em>
+        <b>王瓜生</b>
+        <span>王瓜藤蔓攀长，是初夏植物繁茂的写照。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>小满 · 一候</em>
+        <b>苦菜秀</b>
+        <span>苦菜枝叶繁茂，正是青黄不接时的救荒野菜。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>小满 · 二候</em>
+        <b>靡草死</b>
+        <span>喜阴的细软草类在烈日下枯死。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>小满 · 三候</em>
+        <b>麦秋至</b>
+        <span>麦子即将成熟，虽在夏月而有秋收之实。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>芒种 · 一候</em>
+        <b>螳螂生</b>
+        <span>去年深秋产下的螳螂卵破壳，小螳螂现身。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>芒种 · 二候</em>
+        <b>鵙始鸣</b>
+        <span>伯劳鸟开始鸣叫于枝头。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>芒种 · 三候</em>
+        <b>反舌无声</b>
+        <span>善鸣的反舌鸟因感阴气而停止鸣唱。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>夏至 · 一候</em>
+        <b>鹿角解</b>
+        <span>鹿角朝前而生属阳，感阴气而脱落。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>夏至 · 二候</em>
+        <b>蜩始鸣</b>
+        <span>蝉（蜩）开始鸣叫，夏声达到顶点。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>夏至 · 三候</em>
+        <b>半夏生</b>
+        <span>药草半夏在沼泽水田间生长，喜阴而生于夏半。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>小暑 · 一候</em>
+        <b>温风至</b>
+        <span>风中带着热浪，再无凉意。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>小暑 · 二候</em>
+        <b>蟋蟀居宇</b>
+        <span>蟋蟀离开田野，避暑于庭院墙角。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>小暑 · 三候</em>
+        <b>鹰始鸷</b>
+        <span>幼鹰学飞搏击，因地面酷热而翔于清凉高空。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>大暑 · 一候</em>
+        <b>腐草为萤</b>
+        <span>古人见萤火虫自腐草间飞出，以为腐草所化。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>大暑 · 二候</em>
+        <b>土润溽暑</b>
+        <span>土地湿润，暑气蒸腾，闷热难当。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#ab4537">
+        <em>大暑 · 三候</em>
+        <b>大雨时行</b>
+        <span>雷雨频繁，暑热渐退，秋天已在来路。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>立秋 · 一候</em>
+        <b>凉风至</b>
+        <span>偏北风带来凉意，暑热开始退场。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>立秋 · 二候</em>
+        <b>白露降</b>
+        <span>昼夜温差加大，清晨草叶上凝结露珠。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>立秋 · 三候</em>
+        <b>寒蝉鸣</b>
+        <span>感阴而鸣的寒蝉在枝头嘶唱，是秋的信使。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>处暑 · 一候</em>
+        <b>鹰乃祭鸟</b>
+        <span>鹰大量捕猎，将猎物陈列而后食，古人谓其「祭鸟」。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>处暑 · 二候</em>
+        <b>天地始肃</b>
+        <span>天地间万物开始凋零，肃杀之气渐生。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>处暑 · 三候</em>
+        <b>禾乃登</b>
+        <span>黍、稷、稻等农作物成熟登场，秋收开始。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>白露 · 一候</em>
+        <b>鸿雁来</b>
+        <span>大雁南飞避寒，雁阵成行。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>白露 · 二候</em>
+        <b>玄鸟归</b>
+        <span>燕子南归，春来秋去，应期不失。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>白露 · 三候</em>
+        <b>群鸟养羞</b>
+        <span>百鸟开始储藏食物，以备越冬。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>秋分 · 一候</em>
+        <b>雷始收声</b>
+        <span>阴气渐盛，雷声收敛不再轰鸣。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>秋分 · 二候</em>
+        <b>蛰虫坯户</b>
+        <span>昆虫开始用细土封堵洞口，预备冬眠。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>秋分 · 三候</em>
+        <b>水始涸</b>
+        <span>降水减少，湖沼之水渐渐干涸。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>寒露 · 一候</em>
+        <b>鸿雁来宾</b>
+        <span>最后一批大雁南飞，如宾客般到访南方。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>寒露 · 二候</em>
+        <b>雀入大水为蛤</b>
+        <span>雀鸟少见而海边蛤蜊增多，古人误以为雀化为蛤。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>寒露 · 三候</em>
+        <b>菊有黄华</b>
+        <span>菊花普遍开放，是深秋最鲜明的花信。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>霜降 · 一候</em>
+        <b>豺乃祭兽</b>
+        <span>豺狼捕猎后将猎物陈列，古人视为祭兽报本。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>霜降 · 二候</em>
+        <b>草木黄落</b>
+        <span>草木枯黄，落叶归根。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#bb8b2f">
+        <em>霜降 · 三候</em>
+        <b>蛰虫咸俯</b>
+        <span>冬眠的昆虫全部垂头不动，进入蛰伏状态。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>立冬 · 一候</em>
+        <b>水始冰</b>
+        <span>水面开始结出薄冰。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>立冬 · 二候</em>
+        <b>地始冻</b>
+        <span>土地表层冻结，但尚未开裂。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>立冬 · 三候</em>
+        <b>雉入大水为蜃</b>
+        <span>野鸡少见而海边大蛤出现，古人以为雉化为蜃。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>小雪 · 一候</em>
+        <b>虹藏不见</b>
+        <span>气温降低不再降雨，彩虹隐匿不见。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>小雪 · 二候</em>
+        <b>天气上升地气下降</b>
+        <span>天空阳气上升、地中阴气下降，天地不通。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>小雪 · 三候</em>
+        <b>闭塞而成冬</b>
+        <span>万物闭塞，寒冬正式形成。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>大雪 · 一候</em>
+        <b>鹖鴠不鸣</b>
+        <span>寒号鸟因天寒而不再鸣叫。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>大雪 · 二候</em>
+        <b>虎始交</b>
+        <span>阴气至极而阳气萌动，老虎开始求偶。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>大雪 · 三候</em>
+        <b>荔挺出</b>
+        <span>马兰草感到阳气而抽出新芽。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>冬至 · 一候</em>
+        <b>蚯蚓结</b>
+        <span>蚯蚓蜷曲成结，静待阳气回升。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>冬至 · 二候</em>
+        <b>麋角解</b>
+        <span>麋角朝后而生属阴，感阳气而脱落。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>冬至 · 三候</em>
+        <b>水泉动</b>
+        <span>一阳初生，山中泉水开始流动且温热。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>小寒 · 一候</em>
+        <b>雁北乡</b>
+        <span>大雁开始向北迁移，感知阳气初动。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>小寒 · 二候</em>
+        <b>鹊始巢</b>
+        <span>喜鹊开始衔草筑巢，为繁殖作准备。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>小寒 · 三候</em>
+        <b>雉始雊</b>
+        <span>野鸡感阳气而鸣叫求偶。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>大寒 · 一候</em>
+        <b>鸡始乳</b>
+        <span>母鸡感知阳气渐生，开始孵小鸡。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>大寒 · 二候</em>
+        <b>征鸟厉疾</b>
+        <span>鹰隼之类猛禽因饥寒而更迅猛地捕食。</span>
+      </div>
+      <div class="hou reveal" style="--sc:#4b6b86">
+        <em>大寒 · 三候</em>
+        <b>水泽腹坚</b>
+        <span>水域中央的冰层冻结得最为坚实。</span>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Chapter 03</p>
+        <h2 class="section-title">延伸知识<span class="sub">黄经 · 农时 · 养生 · 诗</span></h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="article-grid">
+      <article class="card reveal">
+        <span class="card__tag">知 / 01</span>
+        <h3>节气与黄经</h3>
+        <p>太阳在黄道上的位置以黄经度数表示。春分点为0°，此后每15°一个节气：夏至90°、秋分180°、冬至270°。由于黄道与赤道有23°26′的黄赤交角，太阳直射点在南北回归线之间往返，这正是四季与节气的根本成因。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">知 / 02</span>
+        <h3>节气与农耕</h3>
+        <p>节气不是气候的平均值，而是太阳运动的节点。中国幅员辽阔，同一节气各地物候差异极大，因此古人又发展出「节气 + 地方物候」的双重判断方式，这也是二十四节气能通行全国的原因。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">知 / 03</span>
+        <h3>节气与养生</h3>
+        <p>中医「天人相应」思想把节气视为调养身心的节律：春养肝、夏养心、秋养肺、冬养肾，四季各有宜忌。「春夏养阳，秋冬养阴」「冬病夏治」等原则，都建立在节气所标记的阴阳消长之上。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__tag">知 / 04</span>
+        <h3>节气与诗</h3>
+        <p>节气是中国诗歌的天然节拍器。从杜甫的「好雨知时节」到柳宗元的「独钓寒江雪」，诗人以节气为经纬，写尽四时风物与人情冷暖，形成了独特的时令诗传统。</p>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper2">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Chapter 04</p>
+        <h2 class="section-title">十二时辰<span class="sub">一日之内，亦有节律</span></h2>
+        <p class="section-desc">古人将一日分为十二时辰，以地支为名。子时一阳初生，对应冬至；午时阳气最盛，对应夏至——一天也是一年的缩影。</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="shichen">
+      <div class="shichen__item reveal">
+        <b>子时</b><span>23:00—01:00</span><i>夜半</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>丑时</b><span>01:00—03:00</span><i>鸡鸣</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>寅时</b><span>03:00—05:00</span><i>平旦</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>卯时</b><span>05:00—07:00</span><i>日出</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>辰时</b><span>07:00—09:00</span><i>食时</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>巳时</b><span>09:00—11:00</span><i>隅中</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>午时</b><span>11:00—13:00</span><i>日中</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>未时</b><span>13:00—15:00</span><i>日昳</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>申时</b><span>15:00—17:00</span><i>哺时</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>酉时</b><span>17:00—19:00</span><i>日入</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>戌时</b><span>19:00—21:00</span><i>黄昏</i>
+      </div>
+      <div class="shichen__item reveal">
+        <b>亥时</b><span>21:00—23:00</span><i>人定</i>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose reveal">
+      <h3>节气与月令：一部微型的时间百科全书</h3>
+      <p>《淮南子·天文训》完整记载了二十四节气的名称与次序，这是现存最早的完整文献记录。此后，《礼记·月令》按月记述天象、物候与政令，《吕氏春秋·十二纪》将其系统化，元代吴澄《月令七十二候集解》则逐条解释七十二候的成因。</p>
+      <div class="quote-block">「日行一度，十五日为一节，以生二十四时之变。」<cite>——《淮南子·天文训》</cite></div>
+      <p>古人以「节」为分界、以「气」为状态：立春、惊蛰、清明等十二个为「节」，雨水、春分、谷雨等十二个为「中气」。农历以中气定月，若某月无中气，则置闰月加以调节，这正是阴阳合历的精妙之处。</p>
+      <h3>为什么二十四节气今天仍然有用？</h3>
+      <p>因为它建立在最稳定的天文事实上——地球绕太阳公转。无论气候如何波动，太阳到达黄经 30° 的那一刻总是谷雨。这种「以天文定农时」的智慧，使节气在两千多年后依然准确、依然可用。</p>
+      <p>今天，节气更多地活在我们的日常：清明的青团、冬至的饺子、立秋的第一杯奶茶，以及每年春季准时出现在公园里的第一朵花。</p>
+      <p><a class="btn btn--ink" href="#all">回到二十四节气总览 →</a></p>
+    </div>
+  </section>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">二十四节气</div>
+        <p>以太阳周年视运动为尺，将一年划分为二十四个节气。<br>
+        2016 年列入联合国教科文组织人类非物质文化遗产代表作名录。</p>
+      </div>
+      <div>
+        <h4>快速导览</h4>
+        <ul>
+          <li><a href="#main">首页</a></li>
+          <li><a href="#all">二十四节气</a></li>
+          <li><a href="#page-culture">文化长卷</a></li>
+          <li><a href="#today">今日节气</a></li>
+          <li><a href="#wheel">节气盘</a></li>
+          <li><a href="#all">节气总表</a></li>
+          <li><a href="#timeline">四时运行</a></li>
+          <li><a href="#all">春季六节</a></li>
+          <li><a href="#all">夏季六节</a></li>
+          <li><a href="#all">秋季六节</a></li>
+          <li><a href="#all">冬季六节</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>春</h4>
+        <ul>
+          <li><a href="#all">立春</a></li>
+          <li><a href="#all">雨水</a></li>
+          <li><a href="#all">惊蛰</a></li>
+          <li><a href="#all">春分</a></li>
+          <li><a href="#all">清明</a></li>
+          <li><a href="#all">谷雨</a></li>
+          <li><a href="#all">立夏</a></li>
+          <li><a href="#all">小满</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>内容参考《月令七十二候集解》《淮南子·天文训》等文献整理，节气公历日期为常年近似值。</span>
+      <button class="mail-link" type="button" data-copy-email="imuse@163.com" aria-label="复制邮箱 imuse@163.com" title="点击复制邮箱">
+        <span class="mail-link__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="1.7" y="4.6" width="20.6" height="14.8" rx="1.8" fill="rgba(168,50,31,0.05)" stroke="currentColor" stroke-width="1.3"></rect>
+            <path d="M2.4 6.1 L12 13.4 L21.6 6.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M2.4 18.3 L9.3 11.9" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.6"></path>
+            <path d="M21.6 18.3 L14.7 11.9" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.6"></path>
+          </svg>
+        </span>
+        <span class="mail-link__text">imuse@163.com</span>
+        <span class="mail-link__copied" data-copy-hint hidden>邮箱已复制</span>
+      </button>
+    </div>
+  </div>
+</footer>
+<canvas class="particles is-on" data-particles aria-hidden="true"></canvas>
+<button class="motion-toggle is-on" type="button" data-motion-toggle aria-pressed="true" data-label="关闭落叶动效"
+        aria-label="开关时令粒子动效">
+  <svg width="17" height="17" viewBox="0 0 20 20" aria-hidden="true">
+    <path d="M10 2.2c2.6 0 4.7 2.1 4.7 4.7 0 2.7-1.7 4-2.1 4.6-.3.4-.4.7-.4 1.2v.6H7.8v-.6c0-.5-.1-.8-.4-1.2-.4-.6-2.1-1.9-2.1-4.6 0-2.6 2.1-4.7 4.7-4.7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M8.2 15.6h3.6M8.9 17.6h2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </svg>
+</button>
+<button class="to-top" type="button" aria-label="返回顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 5l-7 7h4v7h6v-7h4z" fill="currentColor"/>
+  </svg>
+</button>
+<script>
+/* 自动生成：由 build.py 输出，可安全修改内容后重新运行 build.py */
+window.ST_LINES = {
+  "立春": "东风解冻，蛰虫始振，岁首启新。",
+  "雨水": "冰雪皆散而为水，天一生水，润物无声。",
+  "惊蛰": "春雷始鸣，蛰虫惊而出走。",
+  "春分": "昼夜均而寒暑平，阴阳相半。",
+  "清明": "气清景明，万物皆显，慎终追远。",
+  "谷雨": "雨生百谷，春将尽而夏欲来。",
+  "立夏": "万物至此皆长大，绿阴幽草胜花时。",
+  "小满": "麦粒渐满而未熟，满而不损，是谓小满。",
+  "芒种": "有芒之麦可收，有芒之稻可种。",
+  "夏至": "日北至，日长之至，影短至。",
+  "小暑": "温风至，蟋蟀居壁，鹰始鸷。",
+  "大暑": "腐草为萤，土润溽暑，大雨时行。",
+  "立秋": "凉风至，白露降，寒蝉鸣。",
+  "处暑": "暑气至此而止，鹰乃祭鸟，禾乃登。",
+  "白露": "露凝而白，鸿雁来，玄鸟归。",
+  "秋分": "昼夜均，寒暑平，雷始收声。",
+  "寒露": "露气寒冷，将凝为霜，菊有黄华。",
+  "霜降": "气肃而凝，露结为霜，草木黄落。",
+  "立冬": "水始冰，地始冻，万物收藏。",
+  "小雪": "虹藏不见，天气上升，地气下降。",
+  "大雪": "至此而雪盛也，鹖鴠不鸣，荔挺出。",
+  "冬至": "日南至，日短之至，影长之至，阳气始生。",
+  "小寒": "冷气积久而寒，雁北乡，鹊始巢。",
+  "大寒": "寒气之逆极，鸡始乳，水泽腹坚。"
+};
+
+window.ST_TERM_SEASON = {
+  "立春": "spring",
+  "雨水": "spring",
+  "惊蛰": "spring",
+  "春分": "spring",
+  "清明": "spring",
+  "谷雨": "spring",
+  "立夏": "summer",
+  "小满": "summer",
+  "芒种": "summer",
+  "夏至": "summer",
+  "小暑": "summer",
+  "大暑": "summer",
+  "立秋": "autumn",
+  "处暑": "autumn",
+  "白露": "autumn",
+  "秋分": "autumn",
+  "寒露": "autumn",
+  "霜降": "autumn",
+  "立冬": "winter",
+  "小雪": "winter",
+  "大雪": "winter",
+  "冬至": "winter",
+  "小寒": "winter",
+  "大寒": "winter"
+};
+
+window.ST_QUOTES = [
+  [
+    "好雨知时节，当春乃发生。",
+    "唐 · 杜甫《春夜喜雨》"
+  ],
+  [
+    "微雨众卉新，一雷惊蛰始。",
+    "唐 · 韦应物《观田家》"
+  ],
+  [
+    "绿树阴浓夏日长，楼台倒影入池塘。",
+    "唐 · 高骈《山亭夏日》"
+  ],
+  [
+    "昼晷已云极，宵漏自此长。",
+    "唐 · 韦应物《夏至避暑北池》"
+  ],
+  [
+    "睡起秋声无觅处，满阶梧叶月明中。",
+    "宋 · 刘翰《立秋》"
+  ],
+  [
+    "停车坐爱枫林晚，霜叶红于二月花。",
+    "唐 · 杜牧《山行》"
+  ],
+  [
+    "千山鸟飞绝，万径人踪灭。",
+    "唐 · 柳宗元《江雪》"
+  ],
+  [
+    "天时人事日相催，冬至阳生春又来。",
+    "唐 · 杜甫《小至》"
+  ]
+];
+
+</script>
+<script>
+/* ==========================================================================
+   二十四节气 · 页脚邮箱复制
+   点击邮箱 → 复制到剪贴板 → 显示「邮箱已复制」
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  function $(sel) { return document.querySelector(sel); }
+
+  /* 复制文本：优先 Clipboard API，失败则回退到 execCommand */
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return legacyCopy(text); });
+    }
+    return Promise.resolve(legacyCopy(text));
+  }
+
+  function legacyCopy(text) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', 'readonly');
+      ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function init() {
+    var btn = $('[data-copy-email]');
+    if (!btn) { return; }
+    var email = btn.getAttribute('data-copy-email') || '';
+    var hint = btn.querySelector('[data-copy-hint]');
+    var timer = null;
+
+    /* 可复制时才显示提示元素 */
+    if (hint) { hint.hidden = false; }
+
+    function flash(ok) {
+      if (hint) {
+        hint.textContent = ok ? '邮箱已复制' : '复制失败，请手动选择';
+        hint.classList.toggle('is-error', !ok);
+        hint.classList.add('is-on');
+      }
+      if (timer) { clearTimeout(timer); }
+      timer = setTimeout(function () {
+        if (hint) { hint.classList.remove('is-on'); }
+      }, 2000);
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      copyText(email).then(flash);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+<script>
+/* ==========================================================================
+   二十四节气 · 纯静态站
+   app.js —— 无依赖交互：今日节气 / 节气盘 / 首页筛选 / 滚动动效
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  /* ---------- 节气公历日期（近似值，用于「今日节气」推算与倒计时） ---------- */
+  var TABLE = [
+    ['小寒', '01-05'], ['大寒', '01-20'], ['立春', '02-04'], ['雨水', '02-19'],
+    ['惊蛰', '03-05'], ['春分', '03-20'], ['清明', '04-04'], ['谷雨', '04-20'],
+    ['立夏', '05-05'], ['小满', '05-21'], ['芒种', '06-05'], ['夏至', '06-21'],
+    ['小暑', '07-07'], ['大暑', '07-22'], ['立秋', '08-07'], ['处暑', '08-23'],
+    ['白露', '09-07'], ['秋分', '09-23'], ['寒露', '10-08'], ['霜降', '10-23'],
+    ['立冬', '11-07'], ['小雪', '11-22'], ['大雪', '12-07'], ['冬至', '12-21']
+  ];
+
+  var cache = null;
+
+  function termsOf(year) {
+    return TABLE.map(function (t, i) {
+      var p = t[1].split('-');
+      return {
+        name: t[0],
+        index: i,
+        month: parseInt(p[0], 10),
+        day: parseInt(p[1], 10),
+        date: new Date(year, parseInt(p[0], 10) - 1, parseInt(p[1], 10), 0, 0, 0)
+      };
+    });
+  }
+
+  function timeline() {
+    if (!cache) { cache = termsOf(new Date().getFullYear()); }
+    return cache;
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  /* 当前所处节气 + 进度 + 距下一节气天数 */
+  function currentTerm(now) {
+    var d = now || new Date();
+    var y = d.getFullYear();
+    var today = new Date(y, d.getMonth(), d.getDate());
+    /* 元旦至第一节气之间：仍处于上一年冬至之后的区间，用上一年日期表推算 */
+    var tl = termsOf(today < termsOf(y)[0].date ? y - 1 : y);
+    var i = 0;
+    for (var k = 0; k < tl.length; k++) { if (today >= tl[k].date) { i = k; } }
+    var start = tl[i].date;
+    var nextIdx = (i + 1) % tl.length;
+    var next = nextIdx > i ? tl[nextIdx].date : termsOf(start.getFullYear() + 1)[nextIdx].date;
+    var total = next - start;
+    var done = today - start;
+    var ratio = total > 0 ? Math.min(1, Math.max(0, done / total)) : 0;
+    var left = Math.max(0, Math.round((next - today) / 86400000));
+    return {
+      index: i,
+      year: start.getFullYear(),
+      name: tl[i].name,
+      date: tl[i].date,
+      startText: tl[i].month + '月' + tl[i].day + '日',
+      nextName: tl[nextIdx].name,
+      nextText: tl[nextIdx].month + '月' + tl[nextIdx].day + '日',
+      ratio: ratio,
+      left: left,
+      total: Math.round(total / 86400000)
+    };
+  }
+
+  /* ---------- 1. 导航：当前节气显示、阅读进度、回到顶部 ---------- */
+  function initNav() {
+    var nav = $('.nav');
+    var bar = $('.progress');
+    var top = $('.to-top');
+
+    /* 当前节气 + 时间区间（本地推算） */
+    var c = currentTerm();
+    var termName = $('[data-nav-term]');
+    var termRange = $('[data-nav-range]');
+    if (termName) { termName.textContent = c.name; }
+    if (termRange) { termRange.textContent = c.startText + '—' + c.nextText; }
+
+    /* 节气名用「节气盘对应季节色」，与盘上该节气的扇区颜色一致 */
+    var season = null;
+    try { season = detectSeason(); } catch (e) { season = null; }
+    if (season && termName) { termName.style.color = 'var(--c-' + season + ')'; }
+    var termBox = $('.nav__term');
+    if (termBox) {
+      termBox.setAttribute('aria-label', '当前节气 ' + c.name + '，' + c.startText + '至' + c.nextText);
+    }
+
+    function onScroll() {
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      if (nav) { nav.classList.toggle('is-solid', y > 24); }
+      if (bar) {
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (h > 0 ? Math.min(100, (y / h) * 100) : 0) + '%';
+      }
+      if (top) { top.classList.toggle('is-on', y > 620); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (top) {
+      top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+  }
+
+  /* ---------- 2. 滚动显现 ---------- */
+  function initReveal() {
+    var items = $$('.reveal');
+    if (!items.length) { return; }
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach(function (el, i) {
+      el.style.transitionDelay = Math.min(i % 6, 5) * 95 + 'ms';
+      io.observe(el);
+    });
+  }
+
+  /* ---------- 3. 首页：今日节气卡片 ---------- */
+  function initToday() {
+    var box = $('[data-today]');
+    if (!box) { return; }
+    var c = currentTerm();
+    var now = new Date();
+    var nameEl = $('[data-today-name]', box);
+    var dateEl = $('[data-today-date]', box);
+    var lines = window.ST_LINES || {};
+
+    if (nameEl) { nameEl.textContent = c.name; }
+    if (dateEl) { dateEl.textContent = now.getFullYear() + '年' + (now.getMonth() + 1) + '月' + now.getDate() + '日'; }
+    var greet = $('[data-today-greet]', box);
+    if (greet) {
+      greet.textContent = now.getFullYear() + ' 年 ' + (now.getMonth() + 1) + ' 月 ' + now.getDate() + ' 日 · 今日第 '
+        + (Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000)) + ' 天';
+    }
+    var line = $('[data-today-line]', box);
+    if (line && lines[c.name]) { line.textContent = lines[c.name]; }
+
+    var set = function (sel, val) { var el = $(sel, box); if (el) { el.textContent = val; } };
+    set('[data-today-start]', c.startText);
+    set('[data-today-next]', c.nextName + ' · ' + c.nextText);
+    set('[data-today-left]', c.left + ' 天');
+    set('[data-today-range]', c.startText + ' — ' + c.nextText);
+    var link = $('[data-today-link]', box);
+    if (link) { link.setAttribute('href', '#all'); }
+    var bar = $('[data-today-bar]', box);
+    if (bar) {
+      bar.style.background = 'var(--accent)';
+      setTimeout(function () { bar.style.width = (c.ratio * 100).toFixed(1) + '%'; }, 220);
+    }
+    var pct = $('[data-today-pct]', box);
+    if (pct) { pct.textContent = Math.round(c.ratio * 100) + '%'; }
+
+    /* 首页节气卡片高亮 */
+    $$('.term-card[data-term], .tile[data-term]').forEach(function (el) {
+      if (el.getAttribute('data-term') === c.name) {
+        el.classList.add('is-current');
+        if (!el.querySelector('.term-card__badge') && el.classList.contains('term-card')) {
+          var b = document.createElement('span');
+          b.className = 'term-card__badge';
+          b.textContent = '当前';
+          el.appendChild(b);
+        }
+      }
+    });
+  }
+
+  /* ---------- 4. 首页：诗句轮播 ---------- */
+  function initPoem() {
+    var box = $('[data-poem]');
+    if (!box || !window.ST_QUOTES || !window.ST_QUOTES.length) { return; }
+    var list = window.ST_QUOTES;
+    var i = Math.floor(Math.random() * list.length);
+    var textEl = $('[data-poem-text]', box);
+    var citeEl = $('[data-poem-cite]', box);
+    var render = function () {
+      var q = list[i % list.length];
+      box.style.opacity = '0';
+      box.style.transform = 'translateY(12px)';
+      setTimeout(function () {
+        if (textEl) { textEl.textContent = q[0]; }
+        if (citeEl) { citeEl.textContent = q[1]; }
+        box.style.opacity = '1';
+        box.style.transform = 'none';
+      }, 460);
+    };
+    render();
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+    setInterval(function () { i++; render(); }, 6400);
+  }
+
+  /* ---------- 5. 节气盘：悬停预览 + 点击进入 ---------- */
+  function initWheel() {
+    var wheel = $('[data-wheel]');
+    if (!wheel) { return; }
+    var segs = $$('.wheel__seg', wheel);
+    var nameEls = $$('[data-wheel-name]');
+    var subEls = $$('[data-wheel-sub]');
+    var dateEls = $$('[data-wheel-date]');
+    var lineEl = $('[data-wheel-line]');
+    var linkEls = $$('[data-wheel-link]');
+    var lines = window.ST_LINES || {};
+    var cur = currentTerm();
+    var fill = function (els, text) { els.forEach(function (el) { el.textContent = text; }); };
+
+    function select(seg) {
+      if (!seg) { return; }
+      var name = seg.getAttribute('data-name');
+      var pinyin = seg.getAttribute('data-pinyin') || '';
+      var date = seg.getAttribute('data-date') || '';
+      var href = seg.getAttribute('data-href');
+      segs.forEach(function (s) { s.classList.toggle('is-active', s === seg); });
+      fill(nameEls, name);
+      fill(subEls, pinyin.toUpperCase());
+      fill(dateEls, '公历 ' + date);
+      if (lineEl) { lineEl.textContent = lines[name] || ''; }
+      if (href) {
+        linkEls.forEach(function (a) {
+          a.setAttribute('href', href);
+          a.setAttribute('aria-label', name + ' 详情');
+        });
+      }
+    }
+
+    segs.forEach(function (seg) {
+      seg.addEventListener('mouseenter', function () { select(seg); });
+      seg.addEventListener('focus', function () { select(seg); });
+      seg.addEventListener('click', function () {
+        var href = seg.getAttribute('data-href');
+        if (href) { location.href = href; }
+      });
+      seg.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          var href = seg.getAttribute('data-href');
+          if (href) { location.href = href; }
+        }
+      });
+    });
+
+    var initial = segs.filter ? segs.filter(function (s) { return s.getAttribute('data-name') === cur.name; })[0] : null;
+    select(initial || segs[0]);
+  }
+
+  /* ---------- 6. 节气总览：搜索与季节筛选 ---------- */
+  function initFilter() {
+    var grid = $('[data-term-grid]');
+    if (!grid) { return; }
+    var input = $('[data-search]');
+    var chips = $$('.chip[data-season]');
+    var countEl = $('[data-count]');
+    var empty = $('[data-empty]');
+    var tiles = $$('.tile', grid);
+    var season = 'all';
+
+    function apply() {
+      var q = (input && input.value ? input.value : '').trim().toLowerCase();
+      var shown = 0;
+      var delay = 0;
+      tiles.forEach(function (t) {
+        var hay = (t.getAttribute('data-key') || '').toLowerCase();
+        var okSeason = season === 'all' || t.getAttribute('data-season') === season;
+        var okText = !q || hay.indexOf(q) > -1;
+        var ok = okSeason && okText;
+        if (ok) {
+          /* 重新入场：错峰浮入 */
+          t.style.setProperty('--td', Math.min(delay, 12) * 42 + 'ms');
+          delay++;
+          if (t.classList.contains('is-hidden') || t.classList.contains('is-hiding')) {
+            t.classList.remove('is-hiding');
+            t.classList.remove('is-hidden');
+            /* 强制重排以重播动画 */
+            void t.offsetWidth;
+            t.style.animation = 'none';
+            void t.offsetWidth;
+            t.style.animation = '';
+          }
+          t.classList.remove('is-hidden');
+        } else if (!t.classList.contains('is-hidden')) {
+          t.classList.add('is-hiding');
+          setTimeout(function () { t.classList.add('is-hidden'); t.classList.remove('is-hiding'); }, 320);
+        }
+        if (ok) { shown++; }
+      });
+      if (countEl) {
+        countEl.textContent = '共 ' + shown + ' / ' + tiles.length + ' 个节气';
+        countEl.classList.remove('is-flash');
+        void countEl.offsetWidth;
+        countEl.classList.add('is-flash');
+      }
+      if (empty) { empty.hidden = shown !== 0; }
+    }
+
+    if (input) {
+      input.addEventListener('input', apply);
+      input.addEventListener('keydown', function (e) { if (e.key === 'Escape') { input.value = ''; apply(); } });
+    }
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+        chip.classList.add('is-active');
+        chip.setAttribute('aria-pressed', 'true');
+        season = chip.getAttribute('data-season');
+        apply();
+      });
+    });
+    apply();
+  }
+
+
+  /* ---------- 1A. 顶部模块导航：页内平滑跳转 + 当前模块高亮 ---------- */
+  function initNavModules() {
+    var mods = $$('.nav__mod');
+    if (!mods.length) { return; }
+    var page = location.pathname.split('/').pop() || 'index.html';
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var NAV_OFFSET = 74;
+
+    function scrollToEl(el) {
+      var y = 0;
+      var node = el;
+      while (node) { y += node.offsetTop || 0; node = node.offsetParent; }
+      y = Math.max(0, y - NAV_OFFSET);
+      try {
+        window.scrollTo({ top: y, left: 0, behavior: reduce ? 'auto' : 'smooth' });
+      } catch (e) {
+        try { window.scrollTo(0, y); } catch (e2) { /* 忽略 */ }
+      }
+      if (el.setAttribute) {
+        if (!el.hasAttribute('tabindex')) { el.setAttribute('tabindex', '-1'); }
+        try { el.focus({ preventScroll: true }); } catch (e3) { /* 忽略 */ }
+      }
+    }
+
+    /* 站点级链接：高亮当前页 */
+    mods.forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('#') === -1) {
+        if (href.split('/').pop() === page) {
+          a.classList.add('is-current');
+          a.setAttribute('aria-current', 'page');
+        }
+      }
+    });
+
+    /* 点击：页内锚点由脚本接管，避免预览环境拦截导航 */
+    mods.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var href = a.getAttribute('href') || '';
+        var hashAt = href.indexOf('#');
+        if (hashAt === -1) { return; }
+        var id = href.slice(hashAt + 1);
+        /* 指向其他页面的锚点：交给浏览器正常跳转 */
+        var file = href.slice(0, hashAt).split('/').pop();
+        if (file && file !== page) { return; }
+        var target = document.getElementById(id);
+        if (!target) { return; }
+        e.preventDefault();
+        scrollToEl(target);
+      });
+    });
+
+    /* 滚动高亮：仅首页有各模块 */
+    var ids = ['today', 'timeline', 'culture', 'poetry', 'shichen'];
+    var sections = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    if (!sections.length) { return; }
+
+    function markActive() {
+      var line = (window.pageYOffset || document.documentElement.scrollTop) + window.innerHeight * 0.3;
+      var current = null;
+      sections.forEach(function (sec) { if (sec.offsetTop <= line) { current = sec.id; } });
+      mods.forEach(function (a) {
+        var href = a.getAttribute('href') || '';
+        var id = href.indexOf('#') > -1 ? href.slice(href.indexOf('#') + 1) : null;
+        a.classList.toggle('is-active', !!id && id === current);
+      });
+    }
+    window.addEventListener('scroll', markActive, { passive: true });
+    window.addEventListener('resize', markActive);
+    markActive();
+  }
+
+  /* ---------- 7. 页内锚点：用脚本滚动，避免被沙箱/预览环境拦截导航 ---------- */
+  function initSmoothAnchors() {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var NAV_OFFSET = 74;
+
+    function scrollToEl(el) {
+      if (!el) { return; }
+      var y = 0;
+      var node = el;
+      while (node) { y += node.offsetTop || 0; node = node.offsetParent; }
+      y = Math.max(0, y - NAV_OFFSET);
+      var before = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+      /* 方式一：window.scrollTo（现代浏览器 + 平滑滚动） */
+      try {
+        window.scrollTo({ top: y, left: 0, behavior: reduce ? 'auto' : 'smooth' });
+      } catch (e) {
+        try { window.scrollTo(0, y); } catch (e2) { /* 继续尝试其他方式 */ }
+      }
+
+      /* 方式二：直接改滚动容器的 scrollTop（应对 scrollTo 被限制的环境） */
+      setTimeout(function () {
+        var now = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (Math.abs(now - before) < 4 && Math.abs(now - y) > 4) {
+          if (document.documentElement) { document.documentElement.scrollTop = y; }
+          if (document.body) { document.body.scrollTop = y; }
+          var after = window.pageYOffset || document.documentElement.scrollTop || 0;
+          /* 方式三：仍然没动，则退回浏览器原生锚点跳转 */
+          if (Math.abs(after - before) < 4) {
+            try { el.scrollIntoView(true); } catch (e3) { /* 放弃 */ }
+          }
+        }
+      }, 260);
+
+      /* 让目标可被键盘接续浏览 */
+      if (el.setAttribute) {
+        if (!el.hasAttribute('tabindex')) { el.setAttribute('tabindex', '-1'); }
+        try { el.focus({ preventScroll: true }); } catch (e4) { /* 忽略 */ }
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a) { return; }
+      var id = (a.getAttribute('href') || '').slice(1);
+      if (!id) { return; }
+      var target = document.getElementById(id);
+      if (!target) { return; }
+      e.preventDefault();
+      scrollToEl(target);
+      /* 不写入 location.hash：某些预览环境会因 hash 变更重载 iframe */
+    });
+  }
+
+  /* ---------- 8. 键盘：← → 切换详情页 ---------- */
+  function initDetailKeys() {
+    var prev = $('[data-nav-prev]');
+    var next = $('[data-nav-next]');
+    if (!prev && !next) { return; }
+    document.addEventListener('keydown', function (e) {
+      var tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') { return; }
+      if (e.key === 'ArrowLeft' && prev) { location.href = prev.getAttribute('href'); }
+      if (e.key === 'ArrowRight' && next) { location.href = next.getAttribute('href'); }
+    });
+  }
+
+  /* ---------- 8. 首页：季节标签页（可选） ---------- */
+  function initSeasonTabs() {
+    var tabs = $$('[data-tab]');
+    if (!tabs.length) { return; }
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var key = tab.getAttribute('data-tab');
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        $$('[data-panel]').forEach(function (p) {
+          p.hidden = key !== 'all' && p.getAttribute('data-panel') !== key;
+        });
+      });
+    });
+  }
+
+  /* ---------- 9. 数字滚动 ---------- */
+  function animateCount(el, to, opts) {
+    opts = opts || {};
+    var dur = opts.duration || 1100;
+    var from = typeof opts.from === 'number' ? opts.from : 0;
+    var fmt = opts.format || function (v) { return String(Math.round(v)); };
+    var t0 = null;
+    function step(ts) {
+      if (t0 === null) { t0 = ts; }
+      var p = Math.min(1, (ts - t0) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(from + (to - from) * e);
+      if (p < 1) { requestAnimationFrame(step); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function initCounters() {
+    var box = $('[data-today]');
+    if (!box) { return; }
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var left = $('[data-today-left]', box);
+    var pct = $('[data-today-pct]', box);
+    if (!left && !pct) { return; }
+    var c = currentTerm();
+    if (reduce) { return; } /* 降级：直接显示最终值 */
+
+    if (left) {
+      left.classList.add('count');
+      animateCount(left, c.left, { duration: 900, format: function (v) { return Math.round(v) + ' 天'; } });
+    }
+    if (pct) {
+      pct.classList.add('count');
+      animateCount(pct, Math.round(c.ratio * 100), { duration: 1200, format: function (v) { return Math.round(v) + '%'; } });
+    }
+  }
+
+  /* ---------- 10. 主视觉：按字浮入 + 鼠标视差 ---------- */
+  function initHeroMotion() {
+    var title = $('[data-hero-title]');
+    if (title && !title.dataset.split) {
+      var text = title.textContent.trim();
+      title.dataset.split = '1';
+      title.textContent = '';
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < text.length; i++) {
+        var sp = document.createElement('span');
+        sp.textContent = text.charAt(i);
+        sp.style.animationDelay = (180 + i * 130) + 'ms';
+        frag.appendChild(sp);
+      }
+      title.appendChild(frag);
+    }
+
+    var hero = $('.hero');
+    if (!hero || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+    var rings = $$('.hero__ring', hero);
+    if (!rings.length) { return; }
+    var tx = 0, ty = 0, raf = null, active = false;
+
+    function paint() {
+      raf = null;
+      rings.forEach(function (r, idx) {
+        var depth = (idx + 1) * 20;
+        r.style.transform = 'translate(-50%, -50%) translate3d(' + (tx * depth).toFixed(2) + 'px, ' +
+          (ty * depth).toFixed(2) + 'px, 0)';
+      });
+    }
+
+    hero.addEventListener('mousemove', function (e) {
+      var rect = hero.getBoundingClientRect();
+      tx = (e.clientX - rect.left) / rect.width - 0.5;
+      ty = (e.clientY - rect.top) / rect.height - 0.5;
+      active = true;
+      if (!raf) { raf = requestAnimationFrame(paint); }
+    });
+    hero.addEventListener('mouseleave', function () {
+      if (!active) { return; }
+      active = false;
+      tx = ty = 0;
+      rings.forEach(function (r) { r.style.transform = ''; });
+    });
+  }
+
+  /* ---------- 11. 错峰入场：列表 / 得数格 / 十二时辰 ---------- */
+  function initStagger() {
+    var groups = [
+      ['[data-term-grid] .tile', 42],
+      ['.timeline__col', 60],
+      ['.customs li', 70],
+      ['.hou-list li', 110],
+      ['.facts .fact', 90],
+      ['.hou-grid .hou', 34],
+      ['.shichen__item', 34],
+      ['.detail-head__tags li', 90]
+    ];
+    groups.forEach(function (pair) {
+      $$(pair[0]).forEach(function (el, i) {
+        if (!el.style.getPropertyValue('--rd') && !el.style.getPropertyValue('--td')) {
+          el.style.setProperty('--rd', Math.min(i, 12) * pair[1] + 'ms');
+        }
+      });
+    });
+  }
+
+  /* ---------- 12. 详情页首屏：墨晕与列表显现 ---------- */
+  function initDetailMotion() {
+    var head = $('.detail-head');
+    if (head) { head.classList.add('is-visible'); }
+    /* 古籍常用「朝昼夕夜」标记一日之时，与十二时辰呼应 */
+    var slot = $('[data-time-of-day]');
+    if (slot) {
+      var hour = new Date().getHours();
+      slot.textContent = hour < 6 ? '夜' : hour < 12 ? '朝' : hour < 18 ? '昼' : '夕';
+    }
+  }
+
+  /* ---------- 13. 粒子：一岁一飘落 ---------- */
+  var PARTICLE_MODE = {
+    spring: { colors: ['#e9b7c4', '#f0cdd6', '#dba9b8', '#f6e3e8'], shape: 'petal', size: [12, 22], vy: [30, 74], vx: [-34, 34], spin: [-1.9, 1.9], sway: [14, 40], alpha: [0.6, 0.98] },
+    summer: { colors: ['#f6d489', '#fdf0c4', '#ffdca8', '#fff6d8'], shape: 'mote', size: [6, 17], vy: [-26, 18], vx: [-20, 20], spin: [-0.3, 0.3], sway: [18, 48], alpha: [0.45, 0.95] },
+    autumn: { colors: ['#c9752f', '#bb8b2f', '#a9542b', '#d9a84a'], shape: 'leaf', size: [14, 26], vy: [40, 96], vx: [-42, 42], spin: [-2.6, 2.6], sway: [18, 52], alpha: [0.6, 0.96] },
+    winter: { colors: ['#e4edf5', '#c9dcec', '#ffffff', '#aec6da'], shape: 'snow', size: [9, 22], vy: [34, 84], vx: [-30, 30], spin: [-1.5, 1.5], sway: [14, 40], alpha: [0.55, 0.98] }
+  };
+  var SPRITE_CACHE = {};
+
+  function sprite(cfg) {
+    var key = cfg.shape + '|' + cfg.color;
+    if (SPRITE_CACHE[key]) { return SPRITE_CACHE[key]; }
+    var S = 48;
+    var cv = document.createElement('canvas');
+    cv.width = cv.height = S;
+    var g = cv.getContext('2d');
+    g.translate(S / 2, S / 2);
+    g.fillStyle = cfg.color;
+    g.strokeStyle = cfg.color;
+    if (cfg.shape === 'petal') {
+      g.beginPath();
+      g.ellipse(0, 0, S * 0.20, S * 0.34, 0, 0, Math.PI * 2);
+      g.fill();
+      g.globalAlpha = 0.25;
+      g.beginPath();
+      g.ellipse(0, 0, S * 0.09, S * 0.30, 0, 0, Math.PI * 2);
+      g.fill();
+      g.globalAlpha = 1;
+    } else if (cfg.shape === 'leaf') {
+      g.beginPath();
+      g.moveTo(0, -S * 0.34);
+      g.bezierCurveTo(S * 0.30, -S * 0.16, S * 0.24, S * 0.24, 0, S * 0.34);
+      g.bezierCurveTo(-S * 0.24, S * 0.24, -S * 0.30, -S * 0.16, 0, -S * 0.34);
+      g.fill();
+      g.globalAlpha = 0.34;
+      g.lineWidth = 1.1;
+      g.beginPath();
+      g.moveTo(0, -S * 0.30);
+      g.lineTo(0, S * 0.30);
+      g.stroke();
+      g.globalAlpha = 1;
+    } else if (cfg.shape === 'snow') {
+      g.lineWidth = 1.7;
+      g.lineCap = 'round';
+      for (var k = 0; k < 3; k++) {
+        var a = (Math.PI / 3) * k;
+        g.beginPath();
+        g.moveTo(-Math.cos(a) * S * 0.30, -Math.sin(a) * S * 0.30);
+        g.lineTo(Math.cos(a) * S * 0.30, Math.sin(a) * S * 0.30);
+        g.stroke();
+      }
+    } else {
+      var rg = g.createRadialGradient(0, 0, 0, 0, 0, S * 0.34);
+      rg.addColorStop(0, cfg.color);
+      rg.addColorStop(0.45, cfg.color);
+      rg.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = rg;
+      g.beginPath();
+      g.arc(0, 0, S * 0.34, 0, Math.PI * 2);
+      g.fill();
+    }
+    SPRITE_CACHE[key] = cv;
+    return cv;
+  }
+
+  var SEASON_BY_TERM = null;
+
+  /* 季节映射优先取 site-data.js（由 build.py 生成），不可用时回退到内置表 */
+  function seasonMap() {
+    if (window.ST_TERM_SEASON) { return window.ST_TERM_SEASON; }
+    if (!SEASON_BY_TERM) {
+      SEASON_BY_TERM = {
+        '立春': 'spring', '雨水': 'spring', '惊蛰': 'spring', '春分': 'spring', '清明': 'spring', '谷雨': 'spring',
+        '立夏': 'summer', '小满': 'summer', '芒种': 'summer', '夏至': 'summer', '小暑': 'summer', '大暑': 'summer',
+        '立秋': 'autumn', '处暑': 'autumn', '白露': 'autumn', '秋分': 'autumn', '寒露': 'autumn', '霜降': 'autumn',
+        '立冬': 'winter', '小雪': 'winter', '大雪': 'winter', '冬至': 'winter', '小寒': 'winter', '大寒': 'winter'
+      };
+    }
+    return SEASON_BY_TERM;
+  }
+
+  /* 判定当前页面所属季节：页面季节块 → 当前节气 → 主题色，逐级回退 */
+  function detectSeason() {
+    var map = seasonMap();
+    var i = location.pathname.lastIndexOf('/');
+    var file = decodeURIComponent(location.pathname.slice(i + 1)).replace(/\.html$/, '');
+    if (map[file]) { return map[file]; }
+
+    var byTerm = map[currentTerm().name];
+
+    /* 首页：从「当前节气」卡片读取季节色 */
+    var colors = { '#58896a': 'spring', '#ab4537': 'summer', '#bb8b2f': 'autumn', '#4b6b86': 'winter' };
+    var card = document.querySelector ? document.querySelector('.term-card.is-current') : null;
+    if (card) {
+      var sc = getComputedStyle(card).getPropertyValue('--sc').trim().toLowerCase();
+      if (colors[sc]) { return colors[sc]; }
+    }
+    var accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim().toLowerCase();
+    if (colors[accent]) { return colors[accent]; }
+    return byTerm || 'winter';
+  }
+
+  var PARTICLES_LABEL = { spring: '落花', summer: '流光', autumn: '落叶', winter: '飘雪' };
+
+  function initParticles() {
+    var canvas = $('[data-particles]');
+    var toggle = $('[data-motion-toggle]');
+    if (!canvas || !toggle) { return; }
+    var ctx = canvas.getContext('2d');
+    if (!ctx) { return; }
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var mode = detectSeason();
+    var cfg = PARTICLE_MODE[mode] || PARTICLE_MODE.winter;
+    var falling = cfg.vy[0] >= 0;
+    var w = 0, h = 0, dpr = 1, items = [], raf = null, running = false, t = 0;
+    var on = false;
+    var fps = { frames: 0, mark: 0, since: 0 };
+    var autoStopped = false;
+
+    function resize() {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build();
+    }
+
+    function build() {
+      var target = Math.max(40, Math.min(120, Math.round((w * h) / 18000)));
+      items = [];
+      for (var i = 0; i < target; i++) { items.push(spawn(true)); }
+    }
+
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+
+    function spawn(anywhere) {
+      var color = cfg.colors[Math.floor(Math.random() * cfg.colors.length)];
+      var y;
+      if (anywhere) { y = Math.random() * h; }
+      else { y = falling ? -30 : h + 30; }
+      return {
+        x: Math.random() * w,
+        y: y,
+        size: rnd(cfg.size[0], cfg.size[1]),
+        vx: rnd(cfg.vx[0], cfg.vx[1]),
+        vy: rnd(cfg.vy[0], cfg.vy[1]),
+        rot: Math.random() * Math.PI * 2,
+        spin: rnd(cfg.spin[0], cfg.spin[1]),
+        sway: rnd(cfg.sway[0], cfg.sway[1]),
+        phase: Math.random() * Math.PI * 2,
+        alpha: rnd(cfg.alpha[0], cfg.alpha[1]),
+        sprite: sprite({ shape: cfg.shape, color: color })
+      };
+    }
+
+    function frame(ts) {
+      if (!running) { return; }
+      raf = requestAnimationFrame(frame);
+      var dt = Math.min(0.05, (t ? (ts - t) / 1000 : 0.016));
+      t = ts;
+      /* 性能守卫：连续低帧率时自动降级，避免低端设备卡顿 */
+      if (!fps.mark) { fps.mark = ts; }
+      fps.frames++;
+      fps.since = ts - fps.mark;
+      if (fps.since >= 2000) {
+        if (fps.frames / (fps.since / 1000) < 32) { gracefulStop(); return; }
+        fps.frames = 0;
+        fps.mark = ts;
+      }
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < items.length; i++) {
+        var p = items[i];
+        p.phase += dt;
+        p.x += (p.vx + Math.sin(p.phase) * p.sway) * dt;
+        p.y += p.vy * dt;
+        p.rot += p.spin * dt;
+        if (p.y > h + 40 || p.y < -60 || p.x < -60 || p.x > w + 60) {
+          items[i] = spawn(false);
+          continue;
+        }
+        ctx.save();
+        ctx.globalAlpha = cfg.shape === 'mote'
+          ? p.alpha * (0.55 + 0.45 * Math.sin(p.phase * 1.6))
+          : p.alpha;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.drawImage(p.sprite, -p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      }
+    }
+
+    function start() {
+      if (running || reduce) { return; }
+      running = true;
+      t = 0;
+      fps.frames = 0;
+      fps.mark = 0;
+      fps.since = 0;
+      raf = requestAnimationFrame(frame);
+    }
+
+    function stop() {
+      running = false;
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+      ctx.clearRect(0, 0, w, h);
+    }
+
+    /* 低帧率自动关闭（仅自动触发一次，不写入偏好，用户仍可手动再开启） */
+    function gracefulStop() {
+      if (autoStopped) { return; }
+      autoStopped = true;
+      setOn(false, false);
+      toggle.setAttribute('data-label', '动效已自动关闭（设备性能受限）');
+    }
+
+    function setOn(next, persist) {
+      on = next;
+      var label = PARTICLES_LABEL[mode] || '时令';
+      toggle.classList.toggle('is-on', on);
+      toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+      canvas.classList.toggle('is-on', on);
+      if (!autoStopped) {
+        toggle.setAttribute('data-label', (on ? '关闭' : '开启') + label + '动效');
+      }
+      if (on) { start(); } else { stop(); }
+      if (persist === false) { return; }
+      try { localStorage.setItem('st-motion', on ? '1' : '0'); } catch (e) { /* 忽略 */ }
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem('st-motion'); } catch (e) { /* 忽略 */ }
+    var initial = reduce ? false : (saved === null ? true : saved === '1');
+
+    window.addEventListener('resize', function () {
+      resize();
+      if (on) { stop(); start(); }
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { stop(); } else if (on) { start(); }
+    });
+    toggle.addEventListener('click', function () {
+      autoStopped = false;
+      setOn(!on);
+    });
+
+    resize();
+    setOn(initial);
+  }
+
+  /* ---------- 14. 节气盘：切换时的淡入淡出 ---------- */
+  function initWheelMotion() {
+    var side = $('.wheel-side');
+    var wheel = $('[data-wheel]');
+    if (!side || !wheel) { return; }
+    $$('.wheel__seg', wheel).forEach(function (seg) {
+      seg.addEventListener('mouseenter', function () {
+        side.classList.add('is-swap');
+        setTimeout(function () { side.classList.remove('is-swap'); }, 150);
+      });
+    });
+  }
+
+  /* ---------- 15. 标题书法体切换（隶书 / 楷书 / 行书） ---------- */
+  /* ---------- 启动 ---------- */
+  /* 全局只初始化一次：脚本被重复注入时也不会出现事件绑定两次 */
+  var booted = false;
+  function boot() {
+    if (booted) { return; }
+    booted = true;
+    /* 节气名 + 时间区间：同字体同字号，颜色不同 */
+    initToday();
+    initNav();
+    initSmoothAnchors();
+    initNavModules();
+    initReveal();
+    initPoem();
+    initWheel();
+    initWheelMotion();
+    initFilter();
+    initDetailKeys();
+    initSeasonTabs();
+    initCounters();
+    initHeroMotion();
+    initStagger();
+    initDetailMotion();
+    initParticles();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  /* 对外暴露，便于调试与扩展 */
+  window.SolarTerms = {
+    current: currentTerm,
+    timeline: timeline,
+    pad: pad
+  };
+})();
+
+</script>
+<script>
+
+/* ============ 单文件版：节气详情筛选 + 站内链接改写 + 详情路由 ============ */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  function initDetailFilter() {
+    var bar = $('[data-detail-filter]');
+    if (!bar) { return; }
+    var chips = $$('.chip[data-season]', bar);
+    var input = $('input[data-detail-search]', bar);
+    var countEl = $('[data-detail-count]', bar);
+    var cards = $$('[data-detail]');
+    var season = 'all';
+
+    function apply() {
+      var q = (input && input.value ? input.value : '').trim().toLowerCase();
+      var shown = 0;
+      cards.forEach(function (el) {
+        var key = (el.getAttribute('data-detail') + ' ' + (el.textContent || '').slice(0, 80)).toLowerCase();
+        var okSeason = season === 'all' || el.getAttribute('data-season') === season;
+        var okText = !q || key.indexOf(q) > -1;
+        var ok = okSeason && okText;
+        el.classList.toggle('is-hidden', !ok);
+        if (ok) { shown++; }
+      });
+      if (countEl) { countEl.textContent = '显示 ' + shown + ' / ' + cards.length + ' 个节气'; }
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+        chip.classList.add('is-active');
+        chip.setAttribute('aria-pressed', 'true');
+        season = chip.getAttribute('data-season');
+        apply();
+      });
+    });
+    if (input) {
+      input.addEventListener('input', apply);
+      input.addEventListener('keydown', function (e) { if (e.key === 'Escape') { input.value = ''; apply(); } });
+    }
+    apply();
+  }
+
+  /* 把多页面链接改写成页内锚点 */
+  var RE_TERM = /^(?:\.\.\/|\.\/)?terms\/([^/]+)\.html$/;
+  var RE_INDEX = /^(?:\.\.\/|\.\/)?index\.html$/;
+  var RE_TERMS = /^(?:\.\.\/|\.\/)?terms\.html$/;
+  var RE_CULTURE = /^(?:\.\.\/|\.\/)?culture\.html$/;
+  var RE_ABOUT = /^(?:\.\.\/|\.\/)?about\.html$/;
+
+  function normalizeLinks() {
+    $$('a[href]').forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href) { return; }
+      var m = href.match(RE_TERM);
+      if (m) {
+        a.setAttribute('href', '#all');
+        return;
+      }
+      if (href.indexOf('#') > -1) {
+        var file = href.split('#')[0];
+        if (RE_INDEX.test(file) || file === '') { a.setAttribute('href', '#' + href.split('#')[1]); return; }
+        if (RE_TERMS.test(file)) { a.setAttribute('href', '#all'); return; }
+        if (RE_CULTURE.test(file)) { a.setAttribute('href', '#page-culture'); return; }
+        if (RE_ABOUT.test(file)) { a.setAttribute('href', '#page-about'); return; }
+      }
+      if (RE_INDEX.test(href)) { a.setAttribute('href', '#main'); return; }
+      if (RE_TERMS.test(href)) { a.setAttribute('href', '#all'); return; }
+      if (RE_CULTURE.test(href)) { a.setAttribute('href', '#page-culture'); return; }
+      if (RE_ABOUT.test(href)) { a.setAttribute('href', '#page-about'); return; }
+    });
+  }
+
+  function scrollToEl(el, offset) {
+    if (!el) { return; }
+    var y = 0, n = el;
+    while (n) { y += n.offsetTop || 0; n = n.offsetParent; }
+    y = Math.max(0, y - (offset || 74));
+    try { window.scrollTo({ top: y, behavior: 'smooth' }); }
+    catch (e) { window.scrollTo(0, y); }
+  }
+
+  function routeDetail() {
+    var m = location.hash.match(/^#term-(.+)$/);
+    if (!m) { return; }
+    var el = document.getElementById('term-' + decodeURIComponent(m[1]));
+    if (el) { setTimeout(function () { scrollToEl(el); }, 120); }
+  }
+
+  function boot() {
+    normalizeLinks();
+    initDetailFilter();
+    if (location.hash) { routeDetail(); }
+    window.addEventListener('hashchange', routeDetail);
+  }
+
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
+})();
+
+</script>
+</body>
+</html>
